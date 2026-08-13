@@ -490,9 +490,22 @@
 
   /* --- Live agent handoff --------------------------------------------------- */
 
+  /* Demo switch: the hours gate is off, so the handoff always offers. A stake-
+     holder opening the link at 9pm should see the escalation flow, not the
+     closed message, and the closed path is the one thing a demo cannot show on
+     request because it depends on the clock.
+     Nothing else was removed. `hours`, `hoursLabel` and the offline copy all
+     stay in knowledge.js, and the check below still works: flip this to false
+     and the gate is back, no other edit needed.
+     Turn it back on before this is anything but a demo. Offering a person
+     outside the hours a person exists is a promise the product cannot keep. */
+  const IGNORE_SUPPORT_HOURS = true;
+
   /* True inside member support hours, read in the support team's own timezone
      so it does not drift with the member's clock. */
   function agentAvailable() {
+    if (IGNORE_SUPPORT_HOURS) return true;
+
     const parts = new Intl.DateTimeFormat('en-US', {
       timeZone: KB.ESCALATION.timeZone,
       weekday: 'short',
