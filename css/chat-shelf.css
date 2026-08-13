@@ -177,11 +177,15 @@
   align-self: center;
 }
 
-/* Pulled tight to the close button: the two of them read as one control
-   cluster rather than as a button that drifted in from the title. */
+/* Held off the close button rather than tucked against it. The header's 8px gap
+   was being eaten by a -4px pull, leaving 4px between a labelled button and an
+   icon button: close enough to read as one control with a stray X on the end.
+   +4px against the gap makes it 12px, which separates "leave this conversation"
+   from "close the whole shelf". They do different things and should not look
+   like one pair. */
 .chat-end {
   flex: none;
-  margin-right: calc(var(--space-1) * -1);
+  margin-right: var(--space-1);
 }
 
 /* --- End-chat confirmation -------------------------------------------------
