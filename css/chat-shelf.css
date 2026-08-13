@@ -324,12 +324,13 @@
   align-self: center;
   justify-content: center;
   /* The empty log sits between the prompt and the chips as a zero-height flex
-     item, so it costs two 16px gaps for an element with nothing in it. One of
-     them comes back here.
+     item, so it costs two 16px gaps for an element with nothing in it. Both come
+     back here, plus 8px, leaving 24px from the prompt to the chips: they answer
+     the question above them, so they belong to it.
      Cancelled with a margin rather than by hiding the log: the log is the
      aria-live region, and a region that is display:none at the moment the first
      message lands never announces it. Same trap as the queue panel. */
-  margin-top: calc(var(--space-4) * -1);
+  margin-top: calc(var(--space-6) * -1);
 }
 
 .chat-daystamp[hidden] {
