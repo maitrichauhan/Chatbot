@@ -1,0 +1,860 @@
+/* ============================================================================
+   Copart assistant: chat inside a Vallejo Shelf
+   Extends the Shelf, Chip, Textarea, and Button primitives. Every value below
+   resolves to a Vallejo token; the file adds only what the system has no
+   component for: message bubbles and the typing indicator.
+   ========================================================================== */
+
+/* --- Scrim ----------------------------------------------------------------- */
+
+.chat-scrim {
+  /* The shelf owns the edge; the scrim only dims and traps the pointer. */
+  padding: 0;
+}
+
+.chat-scrim[hidden] {
+  display: none;
+}
+
+.chat-scrim.is-closing {
+  animation: chat-scrim-out var(--duration-moderate) var(--ease-exit) forwards;
+}
+
+@keyframes chat-scrim-out {
+  to { opacity: 0; }
+}
+
+/* --- Shelf ----------------------------------------------------------------- */
+
+.chat-shelf[hidden] {
+  display: none;
+}
+
+/* --- Popup: the default form on desktop ------------------------------------
+   A card floating above the launcher rather than an edge panel. Non-modal: the
+   page stays usable behind it, which is the point of a popup and the reason it
+   carries no scrim. Expanding turns it into the Shelf proper.
+   -------------------------------------------------------------------------- */
+
+.chat-shelf {
+  /* Anchored to the launcher it grows from, clearing it by a full gap. */
+  top: auto;
+  right: var(--space-4);
+  bottom: calc(60px + var(--space-4) * 2);
+  left: auto;
+
+  width: 400px;
+  /* Tall enough to hold a real exchange without scrolling on the first turn.
+     The max-height clamps it on short viewports: the launcher it sits above is
+     60px, plus a gap under it and a matching one at the top. */
+  height: 720px;
+  max-height: calc(100dvh - 60px - var(--space-4) * 4);
+
+  border-radius: var(--radius-2xl);
+  /* The header and footer are square; the card clips them to its own corners. */
+  overflow: hidden;
+
+  /* Vallejo stacks --layer-scrim (1400) above --layer-drawer (1300) because its
+     sanctioned pattern nests the modal inside the scrim. This is a sibling of
+     the scrim, so it takes the modal layer to sit above the dim. */
+  z-index: var(--layer-modal);
+
+  animation-name: chat-popup-in;
+}
+
+/* Grows from the launcher's corner rather than sliding from an edge, because
+   that is where it came from. */
+@keyframes chat-popup-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-4)) scale(0.98);
+    transform-origin: bottom right;
+  }
+}
+
+.chat-shelf.is-closing {
+  animation: chat-popup-out var(--duration-moderate) var(--ease-exit) forwards;
+}
+
+@keyframes chat-popup-out {
+  to {
+    opacity: 0;
+    transform: translateY(var(--space-2)) scale(0.98);
+    transform-origin: bottom right;
+  }
+}
+
+/* Two forms, not three. The expanded Shelf panel is gone: expand asked the
+   member to manage a window instead of asking their question, it was the only
+   control that changed nothing about the conversation, and it carried the most
+   complexity in the component, because toggling it moved focus trapping,
+   aria-modal, the scrim and page inertness under someone who only wanted more
+   room. Removing it also freed the 40px the header needed for "End chat".
+   What is left: a non-modal popup on desktop, a modal sheet below 600px. */
+
+/* The scrim belongs to the modal form only: a popup that dims the page it
+   floats over is not a popup. */
+.chat-scrim {
+  display: none;
+}
+
+.chat-scrim.is-modal {
+  display: flex;
+}
+
+/* Header ---------------------------------------------------------------- */
+
+/* Vallejo's .shelf-subtitle is 13px with 0.13 tracking. Nothing in this shelf
+   is 13px, so this takes the same override as .avatar-sm below: 12/16, and the
+   tracking goes with the size it existed to open up. */
+/* Vallejo puts 2px between the two title lines, but the measured optical gap is
+   about 13px: the 28px title line carries 7.5px of descender space under its
+   baseline, and the 16px subtitle another 3.5px of half-leading above its cap.
+   The name and what it is are one identity, not two stacked labels, so they
+   close up. Gap removed and the subtitle rides 2px higher: roughly 9px baseline
+   to cap, which reads as a pair. */
+.chat-shelf .shelf-titles {
+  gap: 0;
+}
+
+.chat-subtitle {
+  margin-top: calc(var(--space-0-5) * -1);
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+/* Presence, on the subtitle only while a person is in the chat. It reports the
+   state of *this conversation*, not staffing: by the time it renders the agent
+   has already joined, so it is not claiming anyone is standing by. The offer
+   card deliberately carries no such dot, because before you connect nothing
+   here knows whether anyone is free.
+   A flex row rather than an inline-block: sitting the dot on the baseline puts
+   it level with the x-height, which reads low against a line carrying ascenders
+   and descenders. Centred on the line box it sits where the eye expects. */
+.chat-subtitle-live {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+}
+
+.chat-subtitle-live::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--success-500);
+}
+
+.chat-end[hidden] {
+  display: none;
+}
+
+/* Vallejo centres the header row, which was right when the title was one line.
+   With a subtitle under it the 32px avatar and the controls drift to the middle
+   of a 46px block and stop lining up with the name they belong to. Top aligned,
+   they sit on the name's line where they read as labelling it. */
+.shelf-header {
+  align-items: flex-start;
+}
+
+/* The avatar's top edge sits on the cap height of the name, not on the line box.
+   A line box is taller than the letters in it: at 18/28 the half-leading is
+   3.5px and the ascender clears the cap of a "C" by another 3.7px, so a flush
+   top leaves the circle floating 7px above the letterform it belongs to.
+   7px = (28 - 17 - 4) / 2 + 17 - 13.27, the cap top measured for Inter at 18px.
+   Recheck it if the title's size or family changes. */
+.chat-avatar {
+  margin-top: 7px;
+}
+
+/* The controls are not typography and do not follow the cap. They act on the
+   header as a whole, so they centre against the whole of it rather than lining
+   up with the first line of a two-line title. */
+.chat-end,
+.icon-btn-close {
+  align-self: center;
+}
+
+/* Pulled tight to the close button: the two of them read as one control
+   cluster rather than as a button that drifted in from the title. */
+.chat-end {
+  flex: none;
+  margin-right: calc(var(--space-1) * -1);
+}
+
+/* --- End-chat confirmation -------------------------------------------------
+   Vallejo's Modal, scoped to the shelf instead of the viewport. The card, the
+   scrim colour, the entrance and the footer are all the system's; only the
+   containing block and the padding are local.
+   The shelf sets overflow: hidden, so the scrim clips to its rounded corners
+   without needing a radius of its own.
+   -------------------------------------------------------------------------- */
+
+.chat-confirm {
+  position: absolute;
+  padding: var(--space-4);
+  /* Above the sticky header and footer, which take --layer-sticky. */
+  z-index: var(--layer-modal);
+}
+
+.chat-confirm[hidden] {
+  display: none;
+}
+
+.chat-confirm-card {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Vallejo's modal padding is drawn for a 520px dialog on a page. Inside a 400px
+   panel the same 24px reads as a card with a hole in it, so it steps down to
+   16px and the body tightens to the shelf's own reading size. */
+.chat-confirm-card .modal-header {
+  padding: var(--space-4) var(--space-4) 0;
+}
+
+.chat-confirm-card .modal-title {
+  font-size: 17px;
+  line-height: 24px;
+}
+
+.chat-confirm-card .modal-body {
+  flex: 0 1 auto;
+  padding: var(--space-2) var(--space-4) 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* The pair splits the row evenly, for the same reason the escalation card's
+   does: at 400px two natural-width buttons are one long label away from
+   wrapping, and an even split cannot. */
+.chat-confirm-card .modal-footer {
+  padding: var(--space-4);
+  gap: var(--space-2);
+}
+
+.chat-confirm-card .modal-footer .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-inline: var(--space-2);
+}
+
+.chat-avatar {
+  flex: none;
+  background: var(--interactive-selected-fill);
+  color: var(--interactive-primary);
+  /* Vallejo sizes .avatar-sm initials at 13px. Nothing in this shelf is 13px,
+     and the agent's initial is the one place that text shows. */
+  font-size: 12px;
+}
+
+.chat-avatar svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* A person, not a product, the initials avatar takes neutral identity ink
+   rather than Cogent's blue. */
+.chat-avatar-agent {
+  background: var(--surface-sunken);
+  color: var(--text-secondary);
+}
+
+/* --- Empty state ----------------------------------------------------------- */
+
+.chat-empty[hidden] {
+  display: none;
+}
+
+/* Vallejo's Default empty state is sized for a page or a full table region:
+   16px between icon, title, and body, inside 48px of vertical padding. In a
+   420px shelf that reads as adrift, and the body already centres the block, so
+   the padding is doing no work. Tightened to the Compact rhythm without
+   dropping to Compact's smaller icon and type. */
+/* Asymmetric on purpose. The chips answer the question above them, so the block
+   gives up 8px at the bottom to sit closer to them; the body centres the whole
+   thing anyway, so the top padding is doing the less useful work. */
+.chat-empty {
+  flex: none;
+  gap: var(--space-3);
+  padding: var(--space-6) 0 var(--space-4);
+}
+
+.chat-empty .empty-state-icon {
+  background: var(--interactive-selected-fill);
+  color: var(--interactive-primary);
+}
+
+/* The question and what to ask are one thought, so they group rather than sit
+   evenly spaced under the icon. The 12px gap measures about 23px optically once
+   the 20/28 title's 6.8px of descender space and the 14/20 body's 4.7px of
+   half-leading are counted. Pulling 8px back lands near 15px: still clearly two
+   lines, no longer two separate announcements.
+   Only the body moves, so the icon keeps its full 12px and stays the anchor of
+   the block. */
+.chat-empty .empty-state-body {
+  margin-top: calc(var(--space-2) * -1);
+}
+
+/* --- Body: the conversation ------------------------------------------------ */
+
+.chat-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  background: var(--surface-raised);
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+
+/* Before the first message the body centres its prompt. The surface stays
+   white throughout, so the shelf reads as one sheet from header to composer. */
+.chat-body.is-empty {
+  justify-content: center;
+}
+
+.chat-body.is-empty .chat-suggestions {
+  align-self: center;
+  justify-content: center;
+  /* The empty log sits between the prompt and the chips as a zero-height flex
+     item, so it costs two 16px gaps for an element with nothing in it. One of
+     them comes back here.
+     Cancelled with a margin rather than by hiding the log: the log is the
+     aria-live region, and a region that is display:none at the moment the first
+     message lands never announces it. Same trap as the queue panel. */
+  margin-top: calc(var(--space-4) * -1);
+}
+
+.chat-daystamp[hidden] {
+  display: none;
+}
+
+.chat-daystamp {
+  /* Push a short conversation to the bottom of the body. The composer is where
+     the member is looking, so new turns start next to it, not far above it. */
+  margin: auto 0 0;
+  color: var(--text-tertiary);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: center;
+}
+
+.chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* --- Message rows ---------------------------------------------------------- */
+
+.chat-msg {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  max-width: 88%;
+  animation: chat-msg-in var(--duration-slow) var(--ease-enter);
+}
+
+/* The assistant speaks as the page, not as a chat partner, no bubble, so its
+   answers get the full column width. Only the member's turns are enclosed. */
+.chat-msg-bot {
+  align-self: flex-start;
+  max-width: 100%;
+}
+
+.chat-msg-member {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+@keyframes chat-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-2));
+  }
+}
+
+.chat-bubble {
+  padding: var(--space-3) var(--space-4);
+  font-size: 15px;
+  line-height: 22px;
+  overflow-wrap: anywhere;
+}
+
+/* A live agent's turns sit on the same side and in the same register as
+   Cogent's: who is speaking is carried by the header and the join note, not by
+   giving the agent a second visual treatment to decode. */
+.chat-msg-agent {
+  align-self: flex-start;
+  max-width: 100%;
+}
+
+/* Bare text on the canvas, no fill and no border. Dropping the horizontal
+   padding aligns the answer with the header and composer instead of insetting
+   it, which is what stops an unenclosed turn reading as adrift. */
+.chat-msg-bot .chat-bubble,
+.chat-msg-agent .chat-bubble {
+  padding: 0;
+  color: var(--text-primary);
+}
+
+/* Only the member's turns are enclosed, in a neutral gray. Their own words are
+   a record of what they said, not a call to action, so the fill stays quiet and
+   the ink stays primary. */
+.chat-msg-member .chat-bubble {
+  border-radius: var(--radius-xl) var(--radius-xl) var(--radius-sm) var(--radius-xl);
+  background: var(--surface-subtle);
+  color: var(--text-primary);
+}
+
+/* Answer bodies are small blocks of prose. Reset the top-level children, then
+   space them off one another, one rule instead of a rule per element pair. */
+.chat-bubble > * {
+  margin: 0;
+}
+
+.chat-bubble > * + * {
+  margin-top: var(--space-2);
+}
+
+.chat-bubble strong {
+  font-weight: 600;
+}
+
+/* Links inside an answer send the member to a page where they can check or do
+   something, so they sit in the sentence that sends them there rather than in a
+   block underneath. Blue and semibold, never underlined: the weight is what
+   separates them from the prose, so colour is not carrying it alone. */
+.chat-bubble a:not(.chat-link) {
+  color: var(--text-link);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chat-bubble a:not(.chat-link):hover {
+  color: var(--text-link-hover);
+}
+
+.chat-bubble a:not(.chat-link):focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Answer bullets. Excludes .chat-links, which is a list of article links and
+   carries no markers or indent. */
+.chat-bubble ul:not(.chat-links) {
+  padding-left: var(--space-5);
+  /* A list nested inside the message row would otherwise inherit `circle`. */
+  list-style: disc;
+}
+
+.chat-bubble ul:not(.chat-links) li::marker {
+  color: var(--text-display-muted);
+}
+
+.chat-bubble li + li {
+  margin-top: var(--space-1);
+}
+
+.chat-bubble .u-mono,
+.chat-bubble .input-mono {
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+/* Every timestamp gets this, whoever is speaking. 12px sits a step below
+   Vallejo's smallest (Footnote, 13/16): a deliberate override, since a stamp on
+   every turn is the most repeated element in the transcript and the quietest
+   thing in it. Line height stays on the 4px grid. */
+.chat-meta {
+  padding: 0 var(--space-1);
+  color: var(--text-tertiary);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Bot and agent turns have no bubble inset, so their stamp starts at the same
+   edge as the answer above it. */
+.chat-msg-bot .chat-meta,
+.chat-msg-agent .chat-meta {
+  padding-left: 0;
+}
+
+/* --- Status notes ----------------------------------------------------------
+   "Connecting you to member support", "Maya joined the chat". Not turns in the
+   conversation: centred, quiet, and set apart from both speakers.
+   -------------------------------------------------------------------------- */
+
+.chat-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-1) 0;
+  color: var(--text-tertiary);
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+}
+
+/* --- Escalation panels -----------------------------------------------------
+   Two moments in the same flow: deciding to wait, then waiting. They share one
+   card so the second reads as a continuation of the first rather than a new
+   kind of thing. Vallejo has no live-status surface, and Alert is for messages
+   about a thing rather than the thing itself, so this is built from tokens.
+   The selected wash marks both as the system acting, not as a turn.
+   -------------------------------------------------------------------------- */
+
+/* One class for both states now, not two that happen to match. Deciding and
+   waiting are the same card in the same three slots: title, wait, actions. The
+   card is retitled in place rather than removed and rebuilt, so the second
+   state can actually be seen to be a continuation of the first. */
+.chat-escalate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--interactive-selected-wash);
+  text-align: center;
+  /* Arrives like a turn, because it is part of the conversation. */
+  animation: chat-msg-in var(--duration-slow) var(--ease-enter);
+}
+
+/* Slot one: what this is. The offer used to headline the wait instead, which
+   left the card with no subject: the proposition lived only in a button. */
+.chat-escalate-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+/* Slot two: the wait, in both states, never moving. It is the fixed point the
+   rest of the card turns around during the morph.
+   14/20 at text-secondary, not 12/16 at text-tertiary. The wait is the variable
+   the decision turns on, so it is not sub-sub text; and gray-600 on this wash
+   is 5.22:1 where gray-700 is 7.82:1, because the wash costs contrast. The
+   tertiary step is not available on top of it. */
+/* Pulled up to 4px under the title, against the card's 12px gap. The two lines
+   are one thought, "here is the offer, here is what it costs", so they need to
+   group against the actions rather than float evenly between them. Applies to
+   both states, since both run the same two lines. */
+.chat-escalate-wait {
+  margin: 0;
+  margin-top: calc(var(--space-2) * -1);
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* Slot three. Side by side, splitting the row evenly. At their natural widths
+   the two labels need 331px where the card's inner width is 328px, which is
+   enough to wrap them into two ragged centred lines. Equal halves fix that and
+   are steadier than natural widths: the pair stays symmetrical whatever the
+   labels say, instead of one button being visibly wider than the other.
+   Inline padding drops to space-2, since a button that is already sized by its
+   share of the row does not need 16px holding its label off the edges. */
+.chat-escalate-actions {
+  display: flex;
+  align-self: stretch;
+  gap: var(--space-2);
+}
+
+.chat-escalate-actions .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-inline: var(--space-2);
+}
+
+/* Waiting keeps the same box. The single remaining button holds the half-row
+   width the pair used, centred, so it matches the offer's buttons on every
+   dimension: MD, 40px, radius-lg, 14px, the same inline padding and the same
+   160px. Nothing about the control changes across the morph except its label,
+   which is the point of one card in two states. A button that resized halfway
+   through would read as a different button. */
+.chat-escalate.is-waiting .chat-escalate-actions .btn {
+  flex: 0 1 calc(50% - var(--space-1));
+  margin-inline: auto;
+}
+
+/* Height is animated by measurement in chat.js, so the card must not fight it. */
+.chat-escalate.is-morphing {
+  overflow: hidden;
+}
+
+/* The waiting signal. Not Vallejo's spinner: at 700ms that is a sub-ten-second
+   affordance, and held against a one to two minute wait it reads as stalled.
+   These are the same three dots, the same keyframes and the same 2400ms as the
+   typing indicator, because the member has already learned that those dots mean
+   a reply is coming. Reusing a learned signal beats teaching a second one, and
+   it costs no new component. */
+.chat-escalate-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: none;
+}
+
+.chat-escalate-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: var(--interactive-primary);
+  animation: chat-typing var(--duration-pulse) var(--ease-linear) infinite;
+}
+
+.chat-escalate-dots span:nth-child(2) { animation-delay: 200ms; }
+.chat-escalate-dots span:nth-child(3) { animation-delay: 400ms; }
+
+
+/* Article links a bot answer can hand off to. No rule above them and no
+   trailing glyph: both framed the links as a separate module bolted to the
+   answer. They are the last line of it, spaced like any other paragraph. */
+.chat-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Inline, so the hit area hugs the words rather than running the full width of
+   the column like a list row. */
+.chat-link {
+  display: inline;
+  color: var(--text-link);
+  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.chat-link:hover {
+  color: var(--text-link-hover);
+}
+
+.chat-link:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Typing indicator ------------------------------------------------------ */
+
+/* Named rather than a bare row of dots: three dots are a spinner, which says
+   only "wait". The label says who is working and on what. */
+.chat-typing-label {
+  /* A little air before the dots, which are tight against each other. */
+  margin-right: var(--space-1);
+  color: var(--text-tertiary);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.chat-typing .chat-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  /* Vertical only: the dots sit on the same left edge as the answer they precede. */
+  padding: var(--space-2) 0;
+}
+
+.chat-typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: var(--text-display-muted);
+  animation: chat-typing var(--duration-pulse) var(--ease-linear) infinite;
+}
+
+.chat-typing-dot:nth-child(2) { animation-delay: 200ms; }
+.chat-typing-dot:nth-child(3) { animation-delay: 400ms; }
+
+@keyframes chat-typing {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30%           { opacity: 1;   transform: translateY(-3px); }
+}
+
+/* --- Footer: composer ------------------------------------------------------ */
+
+.chat-footer {
+  /* Vallejo's footer is a right-aligned action row; chat stacks instead. */
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: var(--space-3);
+  padding-bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  /* The hairline above the footer is Vallejo's .shelf-scrolled boolean, set by
+     chat.js when the body overflows, not painted permanently. */
+}
+
+/* In the scroll region under the latest answer, so they wrap to fit the column
+   rather than scrolling sideways the way a docked strip had to. */
+.chat-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-self: flex-start;
+  max-width: 100%;
+  /* Pulls the chips up against the answer they belong to, inside the body's
+     larger inter-turn gap. */
+  margin-top: calc(var(--space-2) - var(--space-4));
+}
+
+.chat-suggestions[hidden] {
+  display: none;
+}
+
+/* Flat, not raised. Vallejo gives Chip a key edge at rest and lifts it on
+   hover, which suits a chip sitting on a page as a control. These sit inside
+   the transcript among unenclosed text, where a row of raised pills reads as
+   heavier than the answer above it. Flattening all three states keeps them
+   quiet: hover still advances the border, which is the affordance that
+   matters, and :focus-visible is untouched. */
+.chat-suggestions .chip,
+.chat-suggestions .chip:hover,
+.chat-suggestions .chip:active {
+  box-shadow: none;
+}
+
+.chat-suggestions .chip {
+  flex: none;
+}
+
+.chat-composer {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.chat-input.textarea {
+  min-height: 40px;
+  max-height: 120px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-xl);
+  resize: none;
+  overflow-y: auto;
+}
+
+/* Vallejo's field focus is concentric, a 2px ring held 2px off a blue border,
+   which reads as two lines. That spacing is there to separate one field from
+   its neighbours in a dense form; the composer is a single standing field with
+   no neighbours, so it collapses to one line.
+   A negative offset draws the ring just inside the border edge instead of
+   outside it, so border and ring meet as a single 3px stroke, no gap, and no
+   layout shift. Kept as an outline rather than a border swap or box-shadow so
+   forced-colors and high-contrast modes still render a focus indicator.
+
+   Scoped through .chat-composer to reach (0,4,0): Vallejo's hover rule is
+   `.textarea:hover:not(:disabled):not([aria-invalid])`, also (0,4,0), and at
+   equal specificity it would otherwise hold the border at --gray-600, leaving
+   a 1px gray edge outside the blue whenever the pointer rests on the field. */
+.chat-composer .chat-input.textarea:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -1px;
+  border-color: var(--border-focus);
+}
+
+.chat-send.btn {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-full);
+}
+
+.chat-send .btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* --- Form: bottom sheet below the panel breakpoint -------------------------
+   Overrides the popup entirely. Anchored to the bottom edge and stopping at
+   88dvh, so the page still shows above the scrim. Close is the only way out:
+   no handle and no drag.
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 599px) {
+  .chat-shelf {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: none;
+    height: 88dvh;
+    max-height: 88dvh;
+    /* Leading corners round; overflow clips the square-cornered header to match. */
+    border-radius: var(--radius-2xl) var(--radius-2xl) var(--radius-none) var(--radius-none);
+    overflow: hidden;
+    animation-name: chat-sheet-in;
+  }
+
+  .chat-shelf.is-closing {
+    animation: chat-sheet-out var(--duration-slow) var(--ease-exit) forwards;
+  }
+
+  /* The sheet is modal, so the scrim shows whatever the desktop form is doing. */
+  .chat-scrim {
+    display: flex;
+  }
+
+  .chat-msg {
+    max-width: 92%;
+  }
+}
+
+@keyframes chat-sheet-in {
+  from { transform: translateY(100%); }
+}
+
+@keyframes chat-sheet-out {
+  to { transform: translateY(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-msg,
+  .chat-shelf.is-closing,
+  .chat-scrim.is-closing {
+    animation: none;
+  }
+
+  .chat-body {
+    scroll-behavior: auto;
+  }
+
+  .chat-typing-dot {
+    animation-duration: calc(var(--duration-pulse) * 2);
+  }
+
+  /* Decoration stops. The escalation card still changes state, it just changes
+     at once: the height animation is skipped in chat.js, and the entrance and
+     the receipt lose their rise. The wait line's 45-second update is kept
+     deliberately, because that one is information, not decoration: a member who
+     has turned animation off still needs to know they are still in the queue. */
+  .chat-escalate {
+    animation: none;
+  }
+
+  .chat-escalate-dots span {
+    animation-duration: calc(var(--duration-pulse) * 2);
+  }
+}

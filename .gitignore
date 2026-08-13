@@ -1,0 +1,14 @@
+# Vercel CLI link + the OIDC token it downloads. The token is a real credential
+# and must never be committed.
+.vercel
+.env*
+
+# macOS
+.DS_Store
+
+# In case tooling is ever added; the app itself has no build step.
+node_modules
+
+# Per-machine Claude Code permission allowlist. launch.json is shared project
+# config and stays tracked; this one is local by convention and by name.
+.claude/settings.local.json

@@ -1,0 +1,5 @@
+# Local tooling: none of this is part of the deployed prototype.
+.claude/
+tools/
+dev-server.js
+README.md

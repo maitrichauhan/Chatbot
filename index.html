@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Copart help center</title>
+  <meta name="description" content="Copart help center with Cogent, a chat assistant in a Vallejo shelf.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/tokens.css">
+  <link rel="stylesheet" href="vendor/vallejo.css">
+  <link rel="stylesheet" href="css/copart.css">
+  <link rel="stylesheet" href="css/chat-shelf.css">
+</head>
+<body>
+  <!-- Vallejo icon sprite (vendor/icons.svg) + three page-local icons -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="icon-heart" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.995 7.23319C10.5455 5.60999 8.12832 5.17335 6.31215 6.65972C4.49599 8.14609 4.2403 10.6312 5.66654 12.3892L11.995 18.25L18.3235 12.3892C19.7498 10.6312 19.5253 8.13046 17.6779 6.65972C15.8305 5.18899 13.4446 5.60999 11.995 7.23319Z" clip-rule="evenodd"/></symbol>
+      <symbol id="icon-heart-filled" viewBox="0 0 24 24" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M11.995 7.23319C10.5455 5.60999 8.12832 5.17335 6.31215 6.65972C4.49599 8.14609 4.2403 10.6312 5.66654 12.3892L11.995 18.25L18.3235 12.3892C19.7498 10.6312 19.5253 8.13046 17.6779 6.65972C15.8305 5.18899 13.4446 5.60999 11.995 7.23319Z" clip-rule="evenodd"/></symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 6.75L6.75 17.25"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 6.75L17.25 17.25"/></symbol>
+      <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.25 10.75L12 14.25L8.75 10.75"/></symbol>
+      <symbol id="icon-chevron-up" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.25 14.25L12 10.75L8.75 14.25"/></symbol>
+      <symbol id="icon-close-circle" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 12C4.75 7.99594 7.99594 4.75 12 4.75C16.0041 4.75 19.25 7.99594 19.25 12C19.25 16.0041 16.0041 19.25 12 19.25C7.99594 19.25 4.75 16.0041 4.75 12Z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 9.75L14.25 14.25"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.25 9.75L9.75 14.25"/></symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.75V19.25"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 12H4.75"/></symbol>
+      <symbol id="icon-chevron-left" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.25 8.75L9.75 12L13.25 15.25"/></symbol>
+      <symbol id="icon-chevron-right" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.75 8.75L14.25 12L10.75 15.25"/></symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24" fill="none"><path d="M10.25 16.25L9.6397 16.6859C9.80873 16.9226 10.0993 17.0402 10.3854 16.9877C10.6714 16.9352 10.9013 16.7221 10.9753 16.4409L10.25 16.25ZM16.7147 8.33866C17.0398 8.082 17.0953 7.61038 16.8387 7.28527C16.582 6.96016 16.1104 6.90467 15.7853 7.16134L16.7147 8.33866ZM8.3603 12.3141C8.11954 11.977 7.65113 11.8989 7.31407 12.1397C6.97701 12.3805 6.89894 12.8489 7.1397 13.1859L8.3603 12.3141ZM10.9753 16.4409C11.5574 14.2291 12.971 12.2079 14.2825 10.7134C14.9328 9.97242 15.5456 9.37472 15.9949 8.96321C16.2192 8.7577 16.4021 8.59926 16.5275 8.49327C16.5902 8.44029 16.6385 8.40046 16.6704 8.37446C16.6863 8.36146 16.6982 8.35192 16.7056 8.34593C16.7094 8.34293 16.712 8.34082 16.7136 8.3396C16.7143 8.339 16.7148 8.33861 16.715 8.33846C16.7151 8.33838 16.7151 8.33835 16.7151 8.33839C16.7151 8.33841 16.715 8.33847 16.715 8.33848C16.7149 8.33857 16.7147 8.33866 16.25 7.75C15.7853 7.16134 15.7851 7.16146 15.7849 7.1616C15.7848 7.16167 15.7847 7.16182 15.7845 7.16195C15.7842 7.16222 15.7838 7.16254 15.7833 7.16292C15.7823 7.16367 15.7811 7.16466 15.7796 7.16587C15.7765 7.1683 15.7723 7.17164 15.767 7.17588C15.7565 7.18436 15.7415 7.19646 15.7223 7.21209C15.684 7.24333 15.629 7.28871 15.5594 7.34755C15.4202 7.46519 15.2222 7.63683 14.9817 7.8571C14.5013 8.29716 13.8485 8.93383 13.155 9.72406C11.779 11.2921 10.1926 13.5209 9.52469 16.0591L10.9753 16.4409ZM7.1397 13.1859L9.6397 16.6859L10.8603 15.8141L8.3603 12.3141L7.1397 13.1859Z" fill="currentColor"/></symbol>
+      <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none"><path d="M14.25 10C14.25 10 12.3214 12.0893 11.3571 14.5L9.75 12.5714M19.25 12.25C19.25 16.2541 16.0041 19.5 12 19.5C7.99594 19.5 4.75 16.2541 4.75 12.25C4.75 8.24594 7.99594 5 12 5C16.0041 5 19.25 8.24594 19.25 12.25Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-alert-circle" viewBox="0 0 24 24" fill="none"><path d="M12 14.25C11.5858 14.25 11.25 14.5858 11.25 15C11.25 15.4142 11.5858 15.75 12 15.75V14.25ZM12.01 15.75C12.4242 15.75 12.76 15.4142 12.76 15C12.76 14.5858 12.4242 14.25 12.01 14.25V15.75ZM12 15.75H12.01V14.25H12V15.75Z" fill="currentColor"/><path d="M10.4033 5.41136L10.9337 5.94169L10.4033 5.41136ZM5.41136 10.4033L4.88103 9.87301L4.88103 9.87301L5.41136 10.4033ZM5.41136 13.5967L5.94169 13.0663L5.94169 13.0663L5.41136 13.5967ZM10.4033 18.5886L10.9337 18.0583L10.4033 18.5886ZM13.5967 18.5886L14.127 19.119L14.127 19.119L13.5967 18.5886ZM18.5886 10.4033L19.119 9.87301L19.119 9.87301L18.5886 10.4033ZM13.5967 5.41136L14.127 4.88103L14.127 4.88103L13.5967 5.41136ZM9.87301 4.88103L4.88103 9.87301L5.94169 10.9337L10.9337 5.94169L9.87301 4.88103ZM4.88103 14.127L9.87301 19.119L10.9337 18.0583L5.94169 13.0663L4.88103 14.127ZM14.127 19.119L19.119 14.127L18.0583 13.0663L13.0663 18.0583L14.127 19.119ZM19.119 9.87301L14.127 4.88103L13.0663 5.94169L18.0583 10.9337L19.119 9.87301ZM19.119 14.127C20.2937 12.9523 20.2937 11.0477 19.119 9.87301L18.0583 10.9337C18.6472 11.5226 18.6472 12.4774 18.0583 13.0663L19.119 14.127ZM9.87301 19.119C11.0477 20.2937 12.9523 20.2937 14.127 19.119L13.0663 18.0583C12.4774 18.6472 11.5226 18.6472 10.9337 18.0583L9.87301 19.119ZM4.88103 9.87301C3.70632 11.0477 3.70632 12.9523 4.88103 14.127L5.94169 13.0663C5.35277 12.4774 5.35277 11.5226 5.94169 10.9337L4.88103 9.87301ZM10.9337 5.94169C11.5226 5.35277 12.4774 5.35277 13.0663 5.94169L14.127 4.88103C12.9523 3.70632 11.0477 3.70632 9.87301 4.88103L10.9337 5.94169Z" fill="currentColor"/><path d="M12 8.75V12.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="icon-alert-triangle" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.9522 16.3536L10.2152 5.85658C10.9531 4.38481 13.0539 4.3852 13.7913 5.85723L19.0495 16.3543C19.7156 17.6841 18.7487 19.25 17.2613 19.25H6.74007C5.25234 19.25 4.2854 17.6835 4.9522 16.3536Z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10V12"/><circle cx="12" cy="16" r="1" fill="currentColor"/></symbol>
+      <symbol id="icon-info" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 12C4.75 7.99594 7.99594 4.75 12 4.75C16.0041 4.75 19.25 7.99594 19.25 12C19.25 16.0041 16.0041 19.25 12 19.25C7.99594 19.25 4.75 16.0041 4.75 12Z"/><circle cx="12" cy="8.25" r="1" fill="currentColor"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11.5V15.5"/></symbol>
+      <symbol id="icon-more-vertical" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5.5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="18.5" r="1.5" fill="currentColor"/></symbol>
+      <symbol id="icon-filter" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 4.75H4.75L9.31174 10.4522C9.59544 10.8068 9.75 11.2474 9.75 11.7016V18.25C9.75 18.8023 10.1977 19.25 10.75 19.25H13.25C13.8023 19.25 14.25 18.8023 14.25 18.25V11.7016C14.25 11.2474 14.4046 10.8068 14.6883 10.4522L19.25 4.75Z"/></symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 19.25L15.5 15.5M4.75 11C4.75 7.54822 7.54822 4.75 11 4.75C14.4518 4.75 17.25 7.54822 17.25 11C17.25 14.4518 14.4518 17.25 11 17.25C7.54822 17.25 4.75 14.4518 4.75 11Z"/></symbol>
+      <symbol id="icon-user" viewBox="0 0 24 24" fill="none"><path d="M18.5 12C18.5 15.5899 15.5899 18.5 12 18.5V20C16.4183 20 20 16.4183 20 12H18.5ZM12 18.5C8.41015 18.5 5.5 15.5899 5.5 12H4C4 16.4183 7.58172 20 12 20V18.5ZM5.5 12C5.5 8.41015 8.41015 5.5 12 5.5V4C7.58172 4 4 7.58172 4 12H5.5ZM12 5.5C15.5899 5.5 18.5 8.41015 18.5 12H20C20 7.58172 16.4183 4 12 4V5.5Z" fill="currentColor"/><path d="M13.5 10C13.5 10.8284 12.8284 11.5 12 11.5V13C13.6569 13 15 11.6569 15 10H13.5ZM12 11.5C11.1716 11.5 10.5 10.8284 10.5 10H9C9 11.6569 10.3431 13 12 13V11.5ZM10.5 10C10.5 9.17157 11.1716 8.5 12 8.5V7C10.3431 7 9 8.34315 9 10H10.5ZM12 8.5C12.8284 8.5 13.5 9.17157 13.5 10H15C15 8.34315 13.6569 7 12 7V8.5Z" fill="currentColor"/><path d="M6.62148 16.5197C6.35622 16.8378 6.39908 17.3108 6.71721 17.576C7.03535 17.8413 7.50828 17.7984 7.77354 17.4803L6.62148 16.5197ZM16.2266 17.4803C16.4918 17.7984 16.9648 17.8413 17.2829 17.576C17.601 17.3108 17.6439 16.8378 17.3786 16.5197L16.2266 17.4803ZM7.77354 17.4803C8.78362 16.2689 10.3017 15.5 12.0001 15.5V14C9.83796 14 7.90434 14.9811 6.62148 16.5197L7.77354 17.4803ZM12.0001 15.5C13.6984 15.5 15.2165 16.2689 16.2266 17.4803L17.3786 16.5197C16.0958 14.9811 14.1622 14 12.0001 14V15.5Z" fill="currentColor"/></symbol>
+      <symbol id="icon-arrow-up" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 10.25L12 4.75L6.75 10.25"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19.25V5.75"/></symbol>
+      <symbol id="icon-arrow-down" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 13.75L12 19.25L6.75 13.75"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18.25V4.75"/></symbol>
+      <symbol id="icon-copy" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.5 15.25V15.25C5.5335 15.25 4.75 14.4665 4.75 13.5V6.75C4.75 5.64543 5.64543 4.75 6.75 4.75H13.5C14.4665 4.75 15.25 5.5335 15.25 6.5V6.5"/><rect width="10.5" height="10.5" x="8.75" y="8.75" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" rx="2"/></symbol>
+      <symbol id="icon-gavel" viewBox="0 0 24 24" fill="none"><path d="M10 14.25L5.75 10L7 8.75L7.5 9.25L10 6.75L9.5 6.25L11 4.75L15.25 9L14 10.25L13.5 9.75L10.75 12.5L11.25 13L10 14.25Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 12L19.25 19.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.75 18.75V19.25H13.25V18.75C13.25 17.6454 12.3546 16.75 11.25 16.75H6.75C5.64543 16.75 4.75 17.6454 4.75 18.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8L12 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+
+      <!-- Added for the host page + assistant; drawn on Vallejo's 24px grid,
+           1.5 stroke, round caps and joins. -->
+      <symbol id="icon-chat" viewBox="0 0 24 24" fill="none"><path transform="translate(4 4)" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14.25C11.866 14.25 15.25 12.1552 15.25 7.5C15.25 2.84483 11.866 0.75 8 0.75C4.13401 0.75 0.75 2.84483 0.75 7.5C0.75 9.2675 1.23783 10.6659 2.05464 11.7206C2.29358 12.0292 2.38851 12.4392 2.2231 12.7926C2.12235 13.0079 2.01633 13.2134 1.90792 13.4082C1.45369 14.2242 2.07951 15.4131 2.99526 15.2297C4.0113 15.0263 5.14752 14.722 6.0954 14.2738C6.2933 14.1803 6.5134 14.1439 6.7305 14.1714C7.145 14.224 7.5695 14.25 8 14.25Z"/></symbol>
+      <symbol id="icon-globe" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 12C4.75 7.99594 7.99594 4.75 12 4.75C16.0041 4.75 19.25 7.99594 19.25 12C19.25 16.0041 16.0041 19.25 12 19.25C7.99594 19.25 4.75 16.0041 4.75 12Z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 12H19.25"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.75C13.7259 6.71715 14.75 9.28464 14.75 12C14.75 14.7154 13.7259 17.2829 12 19.25C10.2741 17.2829 9.25 14.7154 9.25 12C9.25 9.28464 10.2741 6.71715 12 4.75Z"/></symbol>
+      <symbol id="icon-menu" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4 7.25H20"/><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4 12H20"/><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4 16.75H20"/></symbol>
+      <symbol id="icon-car" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 15.25V17.25C4.75 17.8023 5.19772 18.25 5.75 18.25H7.25C7.80228 18.25 8.25 17.8023 8.25 17.25V15.75"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 15.75V17.25C15.75 17.8023 16.1977 18.25 16.75 18.25H18.25C18.8023 18.25 19.25 17.8023 19.25 17.25V15.25"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.25 10.75L7.4453 7.36569C7.72666 6.56896 8.47946 6.03613 9.32447 6.03613H14.6755C15.5205 6.03613 16.2733 6.56896 16.5547 7.36569L17.75 10.75"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 12.75C4.75 11.6454 5.64543 10.75 6.75 10.75H17.25C18.3546 10.75 19.25 11.6454 19.25 12.75V14.25C19.25 14.8023 18.8023 15.25 18.25 15.25H5.75C5.19772 15.25 4.75 14.8023 4.75 14.25V12.75Z"/><circle cx="7.75" cy="13" r="0.75" fill="currentColor"/><circle cx="16.25" cy="13" r="0.75" fill="currentColor"/></symbol>
+      <symbol id="icon-wallet" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 9.75V7.75C19.25 6.64543 18.3546 5.75 17.25 5.75H5.75C5.19772 5.75 4.75 6.19772 4.75 6.75V17.25C4.75 17.8023 5.19772 18.25 5.75 18.25H17.25C18.3546 18.25 19.25 17.3546 19.25 16.25V14.25"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9.75H18.25C18.8023 9.75 19.25 10.1977 19.25 10.75V13.25C19.25 13.8023 18.8023 14.25 18.25 14.25H15.75C14.5074 14.25 13.5 13.2426 13.5 12C13.5 10.7574 14.5074 9.75 15.75 9.75Z"/></symbol>
+      <symbol id="icon-truck" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.75 7.75C2.75 7.19772 3.19772 6.75 3.75 6.75H12.25C12.8023 6.75 13.25 7.19772 13.25 7.75V15.25H2.75V7.75Z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.25 10.25H16.4394C16.7873 10.25 17.1099 10.4308 17.2914 10.7275L19.102 13.6885C19.1988 13.8467 19.25 14.0286 19.25 14.2141V15.25H13.25V10.25Z"/><circle cx="6.5" cy="16.25" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="16.25" r="1.5" stroke="currentColor" stroke-width="1.5"/></symbol>
+      <symbol id="icon-document" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.25 4.75H6.75C6.19772 4.75 5.75 5.19772 5.75 5.75V18.25C5.75 18.8023 6.19772 19.25 6.75 19.25H17.25C17.8023 19.25 18.25 18.8023 18.25 18.25V9.75L13.25 4.75Z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.25 4.75V9.75H18.25"/><path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8.75 13.25H15.25"/><path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8.75 16.25H12.75"/></symbol>
+      <symbol id="icon-bell" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.75C14.8995 4.75 17.25 7.10051 17.25 10V13.25L18.75 16.25H5.25L6.75 13.25V10C6.75 7.10051 9.10051 4.75 12 4.75Z"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 16.25V16.75C9.75 17.9926 10.7574 19 12 19C13.2426 19 14.25 17.9926 14.25 16.75V16.25"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===================================================================
+       Page chrome: a static mock of the Copart help center. Present only
+       to give Cogent a realistic host page. Nothing here is
+       wired up except the two chat entry points.
+       =================================================================== -->
+  <header class="cp-header">
+    <div class="cp-utility">
+      <a class="cp-logo" href="#main" aria-label="Copart member portal home">
+        <svg class="cp-logo-mark" viewBox="0 0 190 52" role="img" aria-label="Copart">
+          <defs>
+            <linearGradient id="cp-rim" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#F2F4F7"/>
+              <stop offset="0.45" stop-color="#9AA0A8"/>
+              <stop offset="1" stop-color="#EDEFF3"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="95" cy="26" rx="91" ry="23.5" fill="none" stroke="url(#cp-rim)" stroke-width="4.5"/>
+          <path d="M96 49.5A91 23.5 0 0 0 185.5 29" fill="none" stroke="#1B6AD4" stroke-width="4.5" stroke-linecap="round"/>
+          <text x="95" y="36" text-anchor="middle" font-family="Inter, sans-serif" font-size="30"
+                font-weight="700" font-style="italic" letter-spacing="-1" fill="#FFFFFF">Copart</text>
+        </svg>
+        <span class="cp-logo-sub">Member portal</span>
+      </a>
+
+      <div class="cp-inventory-search">
+        <svg class="cp-inventory-icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+        <label class="sr-only" for="inventory-search">Search inventory</label>
+        <input id="inventory-search" class="cp-inventory-input" type="search"
+               placeholder="Search inventory by make, model, VIN, and more..">
+        <button class="cp-btn-gold" type="button">Search inventory</button>
+      </div>
+
+      <div class="cp-utility-actions">
+        <button class="cp-utility-btn" type="button">
+          <svg class="cp-globe" aria-hidden="true"><use href="#icon-globe"></use></svg>
+          <span>USA</span>
+        </button>
+        <span class="cp-utility-divider" aria-hidden="true">|</span>
+        <button class="cp-utility-btn" type="button">
+          <span>English</span>
+          <svg class="cp-caret" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button>
+
+        <!-- Signed in: the bell carries an unread dot, and the account menu
+             replaces Register and Sign in. -->
+        <button class="cp-utility-btn cp-bell" type="button" data-unread="true"
+                aria-label="Notifications, unread">
+          <svg aria-hidden="true"><use href="#icon-bell"></use></svg>
+        </button>
+        <button class="cp-utility-btn" type="button">
+          <span>Automation</span>
+          <svg class="cp-caret" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="cp-nav" aria-label="Main">
+      <button class="cp-nav-item" type="button">Dashboard</button>
+      <button class="cp-nav-item" type="button">
+        Inventory <svg class="cp-caret" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+      </button>
+      <button class="cp-nav-item" type="button">
+        Auctions <svg class="cp-caret" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+      </button>
+      <button class="cp-nav-item" type="button">
+        Bid status <svg class="cp-caret" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+      </button>
+      <button class="cp-nav-item" type="button">
+        Payments <svg class="cp-caret" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+      </button>
+      <button class="cp-nav-item" type="button">Locations</button>
+      <button class="cp-nav-item" type="button">
+        Services &amp; support <svg class="cp-caret" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+      </button>
+      <button class="cp-nav-item cp-nav-item-current" type="button" aria-current="page">Help center</button>
+      <button class="cp-nav-item cp-nav-item-sell" type="button">
+        Sell your car <svg class="cp-caret" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+      </button>
+    </nav>
+
+  </header>
+
+  <main id="main">
+    <section class="cp-hero">
+      <h1 class="cp-hero-title">Copart help center</h1>
+      <p class="cp-hero-sub">How can we help?</p>
+
+      <div class="cp-keyword">
+        <div class="segmented cp-hero-segmented" role="radiogroup" aria-label="Search mode">
+          <span class="segmented-indicator" aria-hidden="true"></span>
+          <button class="segment" type="button" role="radio" aria-checked="true">Basic</button>
+          <button class="segment" type="button" role="radio" aria-checked="false">Advanced</button>
+        </div>
+        <label class="sr-only" for="keyword-search">Search help articles by keyword</label>
+        <input id="keyword-search" class="cp-keyword-input" type="search" placeholder="Search by Keyword">
+        <button class="cp-keyword-btn" type="button" aria-label="Search help articles">
+          <svg aria-hidden="true"><use href="#icon-search"></use></svg>
+        </button>
+      </div>
+    </section>
+
+    <section class="cp-categories" aria-labelledby="cat-heading">
+      <h2 class="cp-section-title" id="cat-heading">Most popular categories</h2>
+      <p class="cp-section-note">These categories contain some of our most popular articles</p>
+
+      <ul class="cp-card-grid">
+        <li class="cp-card">
+          <svg class="cp-card-icon" aria-hidden="true"><use href="#icon-user"></use></svg>
+          <h3 class="cp-card-title">Registration and membership</h3>
+          <p class="cp-card-body">Detailed guides about the procedures, requirements, and benefits of becoming a Copart auction member.</p>
+        </li>
+        <li class="cp-card">
+          <svg class="cp-card-icon" aria-hidden="true"><use href="#icon-car"></use></svg>
+          <h3 class="cp-card-title">Finding vehicles</h3>
+          <p class="cp-card-body">Guides and tutorials on the methods, tools, and strategies to search and locate vehicles of interest within the auction platform.</p>
+        </li>
+        <li class="cp-card">
+          <svg class="cp-card-icon" aria-hidden="true"><use href="#icon-gavel"></use></svg>
+          <h3 class="cp-card-title">Bidding and buying</h3>
+          <p class="cp-card-body">Information and guidelines on how to participate in and navigate through auction bids and purchases.</p>
+        </li>
+        <li class="cp-card">
+          <svg class="cp-card-icon" aria-hidden="true"><use href="#icon-wallet"></use></svg>
+          <h3 class="cp-card-title">Payments and deposits</h3>
+          <p class="cp-card-body">Guidance on the methods and processes involved in paying for a bid or winning vehicle from auctions.</p>
+        </li>
+        <li class="cp-card">
+          <svg class="cp-card-icon" aria-hidden="true"><use href="#icon-truck"></use></svg>
+          <h3 class="cp-card-title">Shipping and delivery</h3>
+          <p class="cp-card-body">The process and procedures involved in transporting a purchased vehicle after winning an auction.</p>
+        </li>
+        <li class="cp-card">
+          <svg class="cp-card-icon" aria-hidden="true"><use href="#icon-document"></use></svg>
+          <h3 class="cp-card-title">Title queries</h3>
+          <p class="cp-card-body">The process and procedures of title transfer.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Get support: the second entry point into Cogent. "Chat now"
+         opens the same shelf as the floating launcher. -->
+    <section class="cp-support" aria-labelledby="support-heading">
+      <h2 class="cp-support-title" id="support-heading">Get support</h2>
+      <p class="cp-support-note">Having trouble? Create a support ticket and we&rsquo;ll get back to you shortly.</p>
+
+      <div class="cp-support-actions">
+        <button class="btn btn-primary btn-md" type="button">Create ticket</button>
+        <button
+          class="btn btn-secondary btn-md"
+          type="button"
+          id="chat-launcher-inline"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="chat-shelf">Chat now</button>
+      </div>
+
+      <p class="cp-support-call">Still need help? Give us a call</p>
+      <p class="cp-support-phone">
+        Phone <a class="cp-phone-link" href="tel:+19723915400">(972) 391-5400</a>
+        <button class="icon-btn cp-copy-btn" type="button" aria-label="Copy the phone number">
+          <svg aria-hidden="true"><use href="#icon-copy"></use></svg>
+        </button>
+      </p>
+    </section>
+  </main>
+
+  <footer class="cp-footer">
+    <div class="cp-footer-grid">
+      <div class="cp-footer-brand">
+        <svg class="cp-logo-mark" viewBox="0 0 200 56" aria-hidden="true">
+          <ellipse cx="100" cy="28" rx="97" ry="25" fill="none" stroke="#FFFFFF" stroke-width="5"/>
+          <text x="100" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="30" font-weight="700" font-style="italic" fill="#FFFFFF">Copart</text>
+        </svg>
+
+        <label class="sr-only" for="footer-lang">Language</label>
+        <select class="cp-footer-select" id="footer-lang">
+          <option>English</option>
+          <option>Espa&ntilde;ol</option>
+        </select>
+
+        <label class="sr-only" for="footer-country">Country</label>
+        <select class="cp-footer-select" id="footer-country">
+          <option>USA</option>
+          <option>Canada</option>
+        </select>
+
+        <ul class="cp-footer-brands">
+          <li>CRASHEDTOYS</li>
+          <li>CASHFORCARS.COM</li>
+          <li>NPA</li>
+          <li>POWERSPORT BUYERS</li>
+          <li>PURPLE WAVE AUCTION</li>
+          <li>QUICKAUCTION</li>
+        </ul>
+      </div>
+
+      <nav class="cp-footer-col" aria-label="Get to know us">
+        <h2 class="cp-footer-heading">Get to know us</h2>
+        <ul>
+          <li><a href="#main">About Copart</a></li>
+          <li><a href="#main">Our history</a></li>
+          <li><a href="#main">How VB3 works</a></li>
+          <li><a href="#main">Community</a></li>
+          <li><a href="#main">Member news</a></li>
+          <li><a href="#main">Copart reviews</a></li>
+          <li><a href="#main">Careers</a></li>
+          <li><a href="#main">Press releases</a></li>
+          <li><a href="#main">Investor relations</a></li>
+        </ul>
+      </nav>
+
+      <nav class="cp-footer-col" aria-label="Find a vehicle">
+        <h2 class="cp-footer-heading">Find a vehicle</h2>
+        <ul>
+          <li><a href="#main">Vehicle finder</a></li>
+          <li><a href="#main">Sales list</a></li>
+          <li><a href="#main">Watchlist</a></li>
+          <li><a href="#main">Saved searches</a></li>
+          <li><a href="#main">Vehicle alerts</a></li>
+        </ul>
+      </nav>
+
+      <nav class="cp-footer-col" aria-label="Auctions">
+        <h2 class="cp-footer-heading">Auctions</h2>
+        <ul>
+          <li><a href="#main">Today&rsquo;s auctions</a></li>
+          <li><a href="#main">Auctions calendar</a></li>
+          <li><a href="#main">Join auction</a></li>
+          <li><a href="#main">Night cap sales</a></li>
+          <li><a href="#main">Bank-repo vehicles</a></li>
+          <li><a href="#main">Rental auctions</a></li>
+          <li><a href="#main">Wholesale auctions</a></li>
+        </ul>
+      </nav>
+
+      <nav class="cp-footer-col" aria-label="Services">
+        <h2 class="cp-footer-heading">Services</h2>
+        <ul>
+          <li><a href="#main">Brokers</a></li>
+          <li><a href="#main">Vehicle reports</a></li>
+          <li><a href="#main">Industry links</a></li>
+          <li><a href="#main">Shipping</a></li>
+          <li><a href="#main">Tow providers</a></li>
+          <li><a href="#main">International buyers</a></li>
+        </ul>
+      </nav>
+
+      <nav class="cp-footer-col" aria-label="Support">
+        <h2 class="cp-footer-heading">Support</h2>
+        <ul>
+          <li><a href="#main">Help center</a></li>
+          <li><a href="#main">Glossary of terms</a></li>
+          <li><a href="#main">Resource center</a></li>
+          <li><a href="#main">Help with licensing</a></li>
+          <li><a href="#main">Videos</a></li>
+          <li><a href="#main">Member fees</a></li>
+          <li><a href="#main">Member mobile</a></li>
+          <li><a href="#main">Seller mobile</a></li>
+          <li><a href="#main">New member guide</a></li>
+        </ul>
+      </nav>
+
+      <nav class="cp-footer-col" aria-label="Connect with us">
+        <h2 class="cp-footer-heading">Connect with us</h2>
+        <ul>
+          <li><a href="#main">Facebook</a></li>
+          <li><a href="#main">Instagram</a></li>
+          <li><a href="#main">TikTok</a></li>
+          <li><a href="#main">LinkedIn</a></li>
+          <li><a href="#main">YouTube</a></li>
+          <li><a href="#main">Blog</a></li>
+        </ul>
+
+        <h2 class="cp-footer-heading cp-footer-heading-app">Download the app</h2>
+        <ul class="cp-footer-badges">
+          <li><a href="#main">App Store</a></li>
+          <li><a href="#main">Google Play</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="cp-footer-legal">
+      <p class="cp-copyright">Copyright &copy; 2026 Copart Inc. All rights reserved</p>
+      <ul class="cp-legal-links">
+        <li><a href="#main">Site map</a></li>
+        <li><a href="#main">Contact us</a></li>
+        <li><a href="#main">Sell a vehicle</a></li>
+        <li><a href="#main">Terms of service</a></li>
+        <li><a href="#main">Privacy policy</a></li>
+        <li><a href="#main">Copyright</a></li>
+        <li><a href="#main">Cookie policy</a></li>
+        <li><a href="#main">Your privacy choices</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ===================================================================
+       Cogent launcher (FAB)
+       =================================================================== -->
+  <button
+    class="cp-fab"
+    id="chat-launcher"
+    type="button"
+    aria-haspopup="dialog"
+    aria-expanded="false"
+    aria-controls="chat-shelf"
+    aria-label="Open Cogent">
+    <svg class="cp-fab-icon" aria-hidden="true"><use href="#icon-chat"></use></svg>
+    <svg class="cp-fab-icon cp-fab-icon-close" aria-hidden="true"><use href="#icon-close"></use></svg>
+  </button>
+
+  <!-- ===================================================================
+       Cogent: Vallejo Shelf, Panel form (right edge, 420px) on desktop,
+       bottom sheet below 600px. Header + footer are sticky; .shelf-body is
+       the only scroll region.
+       =================================================================== -->
+  <div class="modal-scrim chat-scrim" id="chat-scrim" hidden></div>
+
+  <aside
+    class="shelf shelf-panel chat-shelf"
+    id="chat-shelf"
+    role="dialog"
+    aria-modal="false"
+    aria-labelledby="chat-shelf-title"
+    hidden>
+
+    <div class="shelf-header">
+      <!-- Icon type, no ring: .avatar-basic is Vallejo's membership ring, which
+           says "Basic member": a tier Cogent does not have. -->
+      <span class="avatar avatar-sm avatar-icon chat-avatar" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><use href="#icon-chat"></use></svg>
+      </span>
+      <div class="shelf-titles">
+        <h2 class="shelf-title" id="chat-shelf-title">Cogent</h2>
+        <!-- Always says who you are talking to and what that means: the AI
+             notice under Cogent, the role under a person. Filled by chat.js so
+             one slot carries both, from one source of copy. -->
+        <p class="shelf-subtitle chat-subtitle" id="chat-subtitle"></p>
+      </div>
+      <!-- Ending a chat is a control, not a thing to say, so it does not belong
+           in the suggestion row with the questions. Quiet rather than
+           destructive: nothing is destroyed, the transcript stays and Cogent
+           picks up where it left off. -->
+      <button class="btn btn-secondary btn-sm chat-end" type="button" id="chat-end" hidden>
+        End chat
+      </button>
+      <button class="icon-btn icon-btn-close" type="button" id="chat-close" aria-label="Close Cogent">
+        <svg aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+    </div>
+
+    <div class="shelf-body chat-body" id="chat-body">
+      <!-- Empty state: Vallejo Empty State, shown until the first message.
+           The body sits on the gray canvas here and flips to white once the
+           conversation starts. -->
+      <div class="empty-state empty-state-default chat-empty" id="chat-empty">
+        <span class="empty-state-icon" aria-hidden="true">
+          <svg><use href="#icon-chat"></use></svg>
+        </span>
+        <h3 class="empty-state-title" id="chat-empty-title">Where should we start?</h3>
+        <p class="empty-state-body" id="chat-empty-body">Ask about registration, bidding, payments, titles, or pickup.</p>
+      </div>
+
+      <p class="chat-daystamp" id="chat-daystamp" hidden>Today</p>
+      <ol class="chat-log" id="chat-log" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation"></ol>
+
+      <!-- Suggested replies sit in the scroll region, directly under the answer
+           that offered them, rather than docked above the composer. -->
+      <div class="chat-suggestions" id="chat-suggestions" hidden></div>
+    </div>
+
+    <div class="shelf-footer chat-footer">
+      <form class="chat-composer" id="chat-form" novalidate>
+        <label class="sr-only" for="chat-input">Message Cogent</label>
+        <textarea
+          class="textarea chat-input"
+          id="chat-input"
+          rows="1"
+          placeholder="Ask a question"
+          autocomplete="off"
+          maxlength="500"></textarea>
+        <button class="btn btn-primary btn-md chat-send" type="submit" id="chat-send" aria-label="Send message" disabled>
+          <svg class="btn-icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
+        </button>
+      </form>
+    </div>
+
+    <!-- Leaving a person mid-conversation is worth one question, and it is the
+         only irreversible-feeling control in the shelf. Vallejo's Modal card,
+         but scoped to the panel rather than the page: the desktop popup is
+         deliberately non-modal, and a decision this local has no business
+         dimming a page the member can still use.
+         role="alertdialog" rather than "dialog": it demands a response before
+         anything else happens, which is exactly what alertdialog is for. -->
+    <div class="modal-scrim chat-confirm" id="chat-confirm" hidden>
+      <div
+        class="modal modal-sm chat-confirm-card"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="chat-confirm-title"
+        aria-describedby="chat-confirm-body">
+        <div class="modal-header">
+          <h2 class="modal-title" id="chat-confirm-title">Are you sure you want to end this chat?</h2>
+        </div>
+        <p class="modal-body" id="chat-confirm-body">
+          Cogent picks up where it left off, and this conversation stays in the transcript.
+        </p>
+        <div class="modal-footer">
+          <button class="btn btn-secondary btn-md" type="button" id="chat-confirm-cancel">Cancel</button>
+          <button class="btn btn-primary btn-md" type="button" id="chat-confirm-end">End chat</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <script src="js/page.js"></script>
+  <script src="js/kb-data.js"></script>
+  <script src="js/knowledge.js"></script>
+  <script src="js/retrieval.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+</html>

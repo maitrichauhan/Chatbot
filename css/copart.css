@@ -1,0 +1,893 @@
+/* ============================================================================
+   Copart help center: host page chrome
+   A static mock of the page the assistant shelf launches from. Everything here
+   is built on Vallejo tokens; no raw hex outside the Copart brand marks.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: var(--layer-toast);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  color: var(--text-link);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  transform: translateY(0);
+}
+
+/* --- Header: utility bar + main nav ----------------------------------------
+   Two rows, matching the live help center: a blue utility bar carrying the
+   logo, inventory search, locale, and account actions; then a black nav bar.
+   -------------------------------------------------------------------------- */
+
+.cp-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--layer-sticky);
+}
+
+.cp-utility {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-5);
+  background: linear-gradient(100deg, var(--gray-950) 0%, var(--blue-800) 40%, var(--blue-600) 100%);
+  color: var(--text-on-header);
+}
+
+.cp-logo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+  flex: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cp-logo-mark {
+  display: block;
+  width: 128px;
+  height: 35px;
+}
+
+.cp-logo-sub {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+/* Notification bell, with the unread pip the signed-in header carries. */
+.cp-bell {
+  position: relative;
+  padding: 0 var(--space-1);
+}
+
+.cp-bell svg {
+  width: 22px;
+  height: 22px;
+}
+
+.cp-bell[data-unread="true"]::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--error-accent);
+}
+
+/* Inventory search: the gold action is Copart brand chrome (--gold). */
+.cp-inventory-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 780px;
+}
+
+.cp-inventory-icon {
+  position: absolute;
+  left: var(--space-3);
+  width: 20px;
+  height: 20px;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.cp-inventory-input,
+.cp-keyword-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 40px;
+  padding: 0 var(--space-3) 0 var(--space-10);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  appearance: none;
+}
+
+.cp-inventory-input::placeholder,
+.cp-keyword-input::placeholder {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+
+.cp-inventory-input:focus-visible,
+.cp-keyword-input:focus-visible {
+  outline: 2px solid var(--border-focus-on-dark);
+  outline-offset: 2px;
+}
+
+.cp-btn-gold {
+  flex: none;
+  height: 40px;
+  padding: 0 var(--space-4);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--gold);
+  color: var(--gray-950);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-enter);
+}
+
+.cp-btn-gold:hover {
+  background: var(--warning-300);
+}
+
+.cp-btn-gold:focus-visible {
+  outline: 2px solid var(--border-focus-on-dark);
+  outline-offset: 2px;
+}
+
+.cp-btn-signin {
+  flex: none;
+  height: 40px;
+  padding: 0 var(--space-5);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--interactive-primary);
+  color: var(--text-inverse);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-enter);
+}
+
+.cp-btn-signin:hover {
+  background: var(--interactive-primary-hover);
+}
+
+.cp-btn-signin:focus-visible {
+  outline: 2px solid var(--border-focus-on-dark);
+  outline-offset: 2px;
+}
+
+.cp-utility-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: none;
+}
+
+.cp-utility-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 40px;
+  padding: 0 var(--space-1);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-on-header);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.cp-utility-btn:hover {
+  color: var(--blue-200);
+}
+
+.cp-utility-btn:focus-visible {
+  outline: 2px solid var(--border-focus-on-dark);
+  outline-offset: 2px;
+}
+
+.cp-utility-divider {
+  color: var(--text-on-header-muted);
+}
+
+.cp-globe {
+  width: 20px;
+  height: 20px;
+}
+
+.cp-caret {
+  width: 16px;
+  height: 16px;
+}
+
+.cp-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-5);
+  background: var(--gray-950);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cp-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.cp-nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: none;
+  height: 44px;
+  padding: 0 var(--space-3);
+  border: none;
+  background: transparent;
+  color: var(--text-on-header);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-enter);
+}
+
+.cp-nav-item:hover {
+  background: var(--gray-800);
+}
+
+.cp-nav-item:focus-visible {
+  outline: 2px solid var(--border-focus-on-dark);
+  outline-offset: -2px;
+}
+
+.cp-nav-item-current {
+  background: var(--gray-700);
+}
+
+.cp-nav-item-sell {
+  margin-left: var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--gold);
+  color: var(--gray-950);
+  font-weight: 600;
+}
+
+.cp-nav-item-sell:hover {
+  background: var(--warning-300);
+}
+
+/* --- Hero ------------------------------------------------------------------ */
+
+.cp-hero {
+  padding: var(--space-10) var(--space-4) var(--space-16);
+  background: var(--surface-subtle);
+  text-align: center;
+}
+
+.cp-hero-title {
+  margin: 0 0 var(--space-3);
+  color: var(--interactive-primary);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: -0.4px;
+}
+
+.cp-hero-sub {
+  margin: 0 0 var(--space-6);
+  color: var(--text-primary);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+/* Mode switch, field, and action read as one control on the live page. */
+.cp-keyword {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.cp-hero-segmented {
+  flex: none;
+  padding: 0;
+  border-radius: var(--radius-none);
+  background: var(--gray-950);
+}
+
+.cp-hero-segmented .segment {
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-none);
+  color: var(--text-on-header-muted);
+  font-size: 15px;
+}
+
+.cp-hero-segmented .segment[aria-checked="true"] {
+  color: var(--text-inverse);
+}
+
+.cp-hero-segmented .segmented-indicator {
+  top: 0;
+  height: 100%;
+  border-radius: var(--radius-none);
+  background: var(--interactive-primary);
+  box-shadow: none;
+}
+
+.cp-hero-segmented:not(.has-indicator) .segment[aria-checked="true"] {
+  background: var(--interactive-primary);
+  border-radius: var(--radius-none);
+  box-shadow: none;
+}
+
+.cp-keyword .cp-keyword-input {
+  height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-none);
+  font-size: 15px;
+}
+
+.cp-keyword-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 60px;
+  border: none;
+  background: var(--gold);
+  color: var(--gray-950);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-enter);
+}
+
+.cp-keyword-btn:hover {
+  background: var(--warning-300);
+}
+
+.cp-keyword-btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -2px;
+}
+
+.cp-keyword-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+/* --- Categories ------------------------------------------------------------ */
+
+.cp-categories {
+  padding: var(--space-16) var(--space-5) var(--space-20);
+  text-align: center;
+}
+
+.cp-section-title {
+  margin: 0 0 var(--space-2);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: -0.32px;
+}
+
+.cp-section-note {
+  margin: 0 0 var(--space-8);
+  color: var(--text-tertiary);
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.cp-card-grid {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: 1fr;
+}
+
+.cp-card {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--space-1) var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  text-align: left;
+  transition: box-shadow var(--duration-fast) var(--ease-enter);
+}
+
+.cp-card:hover {
+  box-shadow: var(--elevation-key-hover);
+}
+
+.cp-card-icon {
+  grid-row: 1;
+  width: 32px;
+  height: 32px;
+  color: var(--interactive-primary);
+}
+
+.cp-card-title {
+  grid-column: 2;
+  align-self: center;
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.cp-card-body {
+  grid-column: 2;
+  margin: 0;
+  color: var(--text-tertiary);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+/* --- Get support ----------------------------------------------------------- */
+
+.cp-support {
+  padding: var(--space-12) var(--space-5);
+  background: var(--surface-subtle);
+  text-align: center;
+}
+
+.cp-support-title {
+  margin: 0 0 var(--space-2);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.cp-support-note {
+  margin: 0 0 var(--space-5);
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.cp-support-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.cp-support-call {
+  margin: 0 0 var(--space-1);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.cp-support-phone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.cp-phone-link {
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+.cp-phone-link:hover {
+  color: var(--text-link-hover);
+}
+
+.cp-copy-btn {
+  width: 24px;
+  height: 24px;
+}
+
+.cp-copy-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* --- Footer ---------------------------------------------------------------- */
+
+.cp-footer {
+  padding: var(--space-12) var(--space-5) var(--space-6);
+  background: var(--surface-footer);
+  color: var(--text-inverse);
+}
+
+.cp-footer-grid {
+  display: grid;
+  gap: var(--space-8);
+  max-width: 1400px;
+  margin: 0 auto;
+  grid-template-columns: 1fr;
+}
+
+.cp-footer-heading {
+  margin: 0 0 var(--space-3);
+  color: var(--warning-200);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.cp-footer-heading-app {
+  margin-top: var(--space-6);
+}
+
+.cp-footer-col ul,
+.cp-footer-badges {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cp-footer-col a {
+  color: var(--text-inverse);
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.cp-footer-col a:hover {
+  color: var(--blue-200);
+}
+
+.cp-footer-col a:focus-visible {
+  outline: 2px solid var(--border-focus-on-dark);
+  outline-offset: 2px;
+}
+
+.cp-footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.cp-footer-select {
+  width: 180px;
+  height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--gray-700);
+  border-radius: var(--radius-sm);
+  background: var(--gray-800);
+  color: var(--text-inverse);
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+.cp-footer-select:focus-visible {
+  outline: 2px solid var(--border-focus-on-dark);
+  outline-offset: 2px;
+}
+
+/* Sibling marketplace wordmarks: text stand-ins for the real lockups. */
+.cp-footer-brands {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-on-header-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.cp-footer-badges li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 132px;
+  height: 40px;
+  border: 1px solid var(--gray-600);
+  border-radius: var(--radius-sm);
+  background: var(--gray-950);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cp-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  max-width: 1400px;
+  margin: var(--space-10) auto 0;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--gray-800);
+}
+
+.cp-copyright {
+  margin: 0;
+  color: var(--text-on-header-muted);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.cp-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cp-legal-links a {
+  color: var(--text-inverse);
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+}
+
+.cp-legal-links a:hover {
+  color: var(--blue-200);
+}
+
+.cp-legal-links a:focus-visible {
+  outline: 2px solid var(--border-focus-on-dark);
+  outline-offset: 2px;
+}
+
+/* --- Launcher (FAB) -------------------------------------------------------- */
+
+.cp-fab {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  z-index: var(--layer-sticky);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+
+  background-image: linear-gradient(var(--interactive-primary), var(--interactive-primary-grad-end));
+  box-shadow: var(--elevation-primary-rest);
+  color: var(--text-inverse);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-enter),
+    box-shadow var(--duration-fast) var(--ease-enter),
+    transform var(--duration-moderate) var(--ease-spring);
+}
+
+.cp-fab:hover {
+  background-image: linear-gradient(var(--interactive-primary-hover), var(--interactive-primary-grad-end));
+  box-shadow: var(--elevation-primary-hover);
+}
+
+.cp-fab:active {
+  background-image: linear-gradient(var(--interactive-primary-active), var(--interactive-primary-active));
+  box-shadow: var(--elevation-primary-pressed);
+}
+
+.cp-fab:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 3px;
+}
+
+.cp-fab-icon {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
+  transition:
+    opacity var(--duration-normal) var(--ease-enter),
+    transform var(--duration-normal) var(--ease-enter);
+}
+
+.cp-fab-icon-close {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+}
+
+.cp-fab[aria-expanded="true"] .cp-fab-icon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.6);
+}
+
+.cp-fab[aria-expanded="true"] .cp-fab-icon-close {
+  opacity: 1;
+  transform: none;
+}
+
+/* Unread pip: surfaces the proactive greeting before the shelf is opened. */
+.cp-fab[data-unread="true"]::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--surface-raised);
+  border-radius: var(--radius-full);
+  background: var(--error-accent);
+}
+
+/* --- Layout down-shifts ----------------------------------------------------
+   The live page is desktop-first, so the small screens collapse rather than the
+   large ones expanding: the utility bar drops its search onto its own row, the
+   hero control stacks, and the grids fall to one column.
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+  .cp-utility {
+    flex-wrap: wrap;
+  }
+
+  .cp-inventory-search {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .cp-utility-actions {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 599px) {
+  .cp-utility,
+  .cp-nav,
+  .cp-categories,
+  .cp-support,
+  .cp-footer {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  .cp-hero-title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .cp-hero-sub {
+    font-size: 19px;
+  }
+
+  /* Stack the mode switch above the field once they no longer fit side by side. */
+  .cp-keyword {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .cp-hero-segmented {
+    width: 100%;
+    max-width: none;
+    border-radius: var(--radius-sm);
+  }
+
+  .cp-hero-segmented .segment {
+    flex: 1 1 0;
+  }
+
+  .cp-section-title {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .cp-support-actions {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 700px) {
+  .cp-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cp-footer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cp-hero-title {
+    font-size: 48px;
+    line-height: 56px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .cp-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cp-footer-grid {
+    grid-template-columns: 1.4fr repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cp-fab,
+  .cp-fab-icon {
+    transition: none;
+  }
+}

@@ -1,0 +1,4691 @@
+/* GENERATED from source/components/*.css by build/build-components.mjs — DO NOT EDIT. Run: npm run build:components */
+/* Vallejo 1.2 component layer. Link dist/tokens.css FIRST (these classes consume var(--…) tokens). */
+
+/* ===== _base.css ===== */
+/* ============================================================================
+   Vallejo 1.2 — BASE layer
+   Light reset · document defaults · global focus fallback · type-scale utilities
+   No component lives here. Every color/space/radius resolves to a var(--token);
+   font sizes/line-heights/letter-spacing come from the §7 type scale verbatim.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   1. Light reset
+   Box model + zero default margins. Intentionally minimal — not a full reset.
+   ---------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+p,
+figure,
+blockquote,
+dl, dd,
+ul, ol {
+  margin: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   2. Document defaults
+   Body inherits Inter, primary ink, and the canvas surface. Antialiasing on
+   so Inter renders at its intended weight on the data-dense Copart surfaces.
+   ---------------------------------------------------------------------------- */
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;           /* Body — Inter 400 / 24 LH */
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--text-primary);
+  background-color: var(--surface-canvas);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Inherit type into form controls so utilities + body apply uniformly. */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Media defaults to block to avoid baseline gaps. */
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* ----------------------------------------------------------------------------
+   3. Global focus fallback
+   Solid 2px ring — never a glow. Components override per-surface (e.g.
+   --border-focus-on-dark on dark chrome); this is the keyboard-only fallback.
+   ---------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ----------------------------------------------------------------------------
+   4. Type-scale utilities (§7)
+   Each utility binds family / weight / size / line-height / letter-spacing
+   exactly. Sizes + line-heights are literal px to match the scale; line-heights
+   are all multiples of 4. Mono uses var(--font-mono) at weight 500 with
+   tabular figures for aligned numerics (VIN / lot # / bid / timers).
+   ---------------------------------------------------------------------------- */
+
+/* --- Display --- */
+.text-display-large {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 72px;
+  letter-spacing: -1.6px;
+}
+
+.text-display-small {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.96px;
+}
+
+/* --- Headline --- */
+.text-headline {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  letter-spacing: -0.54px;
+}
+
+/* --- Titles --- */
+.text-title-1 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.28px;
+}
+
+.text-title-2 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.12px;
+}
+
+.text-title-3 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+/* --- Body --- */
+.text-body-large {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+.text-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+/* Body Emphasis — deprecated dup of Callout; kept for the documented scale. */
+.text-body-emphasis {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+/* List Title — dense list/card titles only, never running body. */
+.text-list-title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+/* Subheadline — table & section labels. */
+.text-subheadline {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.07px;
+}
+
+/* Body Small — controls, table cells. */
+.text-body-small {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+/* --- Fine print --- */
+.text-footnote {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+}
+
+/* Caption 1 */
+.text-caption {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.18px;
+}
+
+/* Overline — UPPERCASE. */
+.text-overline {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.44px;
+  text-transform: uppercase;
+}
+
+/* --- Mono (JetBrains Mono 500, tabular) — numerics you compare --- */
+.text-mono-large {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 28px;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.text-mono-medium {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.text-mono-small {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ----------------------------------------------------------------------------
+   5. Mono helper
+   Swap the family + tabular figures onto numerics inline (VIN / lot # / bid /
+   timestamp) without changing the surrounding text size or weight.
+   ---------------------------------------------------------------------------- */
+.u-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* ===== badges.css ===== */
+/* ============================================================================
+   Vallejo Design System v1.2 — Badges, Tags & Chips
+   Page: Badges, Tags & Chips
+   Components: Badge / Status, Badge / Count, Tag, Chip, Chip / Filter
+
+   Tonal law (Subtle): family-100 fill + family-800 text.
+   Solid law:          family-600 fill + white text.
+   Selected register:  blue-50/100 wash + blue-300 border + blue-800 label
+                       (one uniform across chips, selected rows, watchlist).
+   Pills (badge/chip/tag-applied capsule) = --radius-pill; Tags = --radius-md.
+   ALL colors via tokens — no hardcoded values.
+   ============================================================================ */
+
+
+/* ============================================================================
+   BADGE / STATUS
+   A changing system state: COLORED, filled, no border, never removable.
+   Tone (Neutral/Info/Success/Warning/Error) × Emphasis (Subtle/Solid) × Dot.
+   Type: Caption 1 (Inter 500, 12/16, +0.18 LS).
+   ============================================================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: 20px;
+  padding: 0 var(--space-2);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.18px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* --- Subtle (default): tone-100 fill + tone-800 text ---------------------- */
+
+.badge-neutral {
+  background-color: var(--gray-100);
+  color: var(--gray-800);
+}
+
+.badge-info {
+  background-color: var(--blue-100);
+  color: var(--blue-800);
+}
+
+.badge-success {
+  background-color: var(--success-light);   /* success-100 */
+  color: var(--success-dark);                /* success-800 */
+}
+
+.badge-warning {
+  background-color: var(--warning-light);    /* warning-100 */
+  color: var(--warning-dark);                /* warning-800 */
+}
+
+.badge-error {
+  background-color: var(--error-light);      /* error-100 */
+  color: var(--error-dark);                  /* error-800 */
+}
+
+/* --- Solid (loud / live): tone-600 fill + white text ---------------------- */
+
+.badge-solid.badge-neutral {
+  background-color: var(--gray-600);
+  color: var(--text-inverse);
+}
+
+.badge-solid.badge-info {
+  background-color: var(--blue-600);
+  color: var(--text-inverse);
+}
+
+.badge-solid.badge-success {
+  background-color: var(--success-accent);   /* success-600 */
+  color: var(--text-inverse);
+}
+
+.badge-solid.badge-warning {
+  background-color: var(--warning-accent);    /* warning-600 */
+  color: var(--text-inverse);
+}
+
+.badge-solid.badge-error {
+  background-color: var(--error-accent);     /* error-600 */
+  color: var(--text-inverse);
+}
+
+/* --- Optional leading dot (live / active signals) ------------------------- */
+/* Inherits text color via currentColor so it reads in both Subtle & Solid.  */
+
+.badge-dot-mark {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: currentColor;
+}
+
+
+/* ============================================================================
+   BADGE / COUNT
+   A count is DATA. Solid pill, min 18px. Brand (blue) default,
+   Error (urgent), Neutral (plain totals). Number set in mono.
+   ============================================================================ */
+
+.badge-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--space-1-5);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: var(--text-inverse);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.badge-count-brand {
+  background-color: var(--blue-600);
+}
+
+.badge-count-error {
+  background-color: var(--error-accent);     /* error-600 */
+}
+
+.badge-count-neutral {
+  background-color: var(--gray-600);
+}
+
+
+/* ============================================================================
+   TAG
+   A fixed attribute / category / applied choice. Squarer (--radius-md) and
+   quieter than a badge. The law: an X appears on blue (Applied) or not at all.
+   Type: Caption 1 (Inter 500, 12/16).
+   ============================================================================ */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: 20px;
+  padding: 0 var(--space-2);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.18px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* Neutral gray = a fact about the object (4WD, Salvage) — never removable.  */
+.tag-neutral {
+  background-color: var(--gray-100);
+  color: var(--gray-800);
+}
+
+/* Risk tonals (never vivid) — fixed facts the buyer must weigh, never X'd.  */
+.tag-positive {
+  background-color: var(--success-light);    /* success-100 */
+  color: var(--success-dark);                /* success-800 */
+}
+
+.tag-caution {
+  background-color: var(--warning-light);     /* warning-100 */
+  color: var(--warning-dark);                /* warning-800 */
+}
+
+.tag-critical {
+  background-color: var(--error-light);      /* error-100 */
+  color: var(--error-dark);                  /* error-800 */
+}
+
+/* Applied (user-chosen) — blue-100 + blue-600 — the ONLY removable tone.    */
+.tag-applied {
+  background-color: var(--blue-100);
+  color: var(--blue-600);
+}
+
+/* Removable: trailing × is a real <button>, only valid on .tag-applied.     */
+.tag-removable {
+  padding-right: var(--space-1);
+}
+
+.tag-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-enter);
+}
+
+.tag-remove svg {
+  width: 12px;
+  height: 12px;
+}
+
+.tag-remove:hover {
+  background-color: var(--blue-200);
+}
+
+.tag-remove:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+
+/* ============================================================================
+   CHIP
+   An interactive filter/choice. Pill with a BORDER (its silhouette) raised
+   like a key — chips wear the button key material because they act.
+   Rest = white + gray-300 border + text-secondary.
+   Hover = gray-400 border (line advances).
+   Selected = selected register (blue-100 fill + blue-300 border + blue-800).
+   Additive & multi-select. Disabled stays flat.
+   Type: Body Small (Inter 400, 14/20).
+   ============================================================================ */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: 32px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-default);   /* gray-300 */
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-raised);   /* white */
+  box-shadow: var(--elevation-key);          /* raised key edge */
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-enter),
+    background-color var(--duration-fast) var(--ease-enter),
+    box-shadow var(--duration-fast) var(--ease-enter);
+}
+
+/* Hover — line advances to gray-400, key lifts. */
+.chip:hover {
+  border-color: var(--gray-400);
+  box-shadow: var(--elevation-key-hover);
+}
+
+/* Pressed — key presses in. */
+.chip:active {
+  box-shadow: var(--elevation-key-pressed);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Selected register — state carried by fill + border + label, not color alone
+   (the word stays). Toggle chips flag selection via aria-pressed="true".    */
+.chip[aria-pressed="true"] {
+  border-color: var(--blue-300);
+  background-color: var(--interactive-selected-fill);  /* blue-100 */
+  color: var(--blue-800);
+  box-shadow: var(--elevation-key);
+}
+
+.chip[aria-pressed="true"]:hover {
+  border-color: var(--blue-300);
+  box-shadow: var(--elevation-key-hover);
+}
+
+/* Disabled stays flat (no key edge, no hover affordance). */
+.chip[disabled],
+.chip[aria-disabled="true"] {
+  border-color: var(--border-hairline);
+  background-color: var(--surface-sunken);
+  color: var(--text-disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* --- Removable chip ------------------------------------------------------- */
+/* Capsule wrapper (a <span>); the × is a nested real <button>.              */
+.chip-removable {
+  padding-right: var(--space-1-5);
+}
+
+.chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-enter);
+}
+
+.chip-remove svg {
+  width: 12px;
+  height: 12px;
+}
+
+.chip-remove:hover {
+  background-color: var(--blue-200);
+}
+
+.chip-remove:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+
+/* ============================================================================
+   CHIP / FILTER
+   A filter chip (chip family, pill) that OPENS a Select menu.
+   Rest shows the DIMENSION; the permanent affordance is the chevron.
+   Active = tonal selected register (blue-50 fill + blue-300 border +
+            blue-800 text + blue-600 chevron).
+   Removability is NOT on the trigger — cleared in-place via menu / tag row.
+   ============================================================================ */
+
+.chip-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  height: 32px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-default);   /* gray-300 */
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-raised);   /* white */
+  box-shadow: var(--elevation-key);          /* raised key edge */
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-enter),
+    background-color var(--duration-fast) var(--ease-enter),
+    box-shadow var(--duration-fast) var(--ease-enter);
+}
+
+/* Chevron — the permanent affordance; inherits color until Active. */
+.chip-filter-chevron {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  color: var(--text-tertiary);
+}
+
+/* Hover — line advances to gray-400. */
+.chip-filter:hover {
+  border-color: var(--gray-400);
+  box-shadow: var(--elevation-key-hover);
+}
+
+.chip-filter:active {
+  box-shadow: var(--elevation-key-pressed);
+}
+
+.chip-filter:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Open (menu showing) — reflected via aria-expanded="true". */
+.chip-filter[aria-expanded="true"] {
+  border-color: var(--gray-400);
+  box-shadow: var(--elevation-key-pressed);
+}
+
+/* Active — tonal selected register: blue-50 fill, blue-300 border,
+   blue-800 text, blue-600 chevron. */
+.chip-filter-active {
+  border-color: var(--blue-300);
+  background-color: var(--interactive-selected-wash);  /* blue-50 */
+  color: var(--blue-800);
+}
+
+.chip-filter-active .chip-filter-chevron {
+  color: var(--blue-600);
+}
+
+.chip-filter-active:hover {
+  border-color: var(--blue-300);
+}
+
+/* Disabled stays flat. */
+.chip-filter[disabled],
+.chip-filter[aria-disabled="true"] {
+  border-color: var(--border-hairline);
+  background-color: var(--surface-sunken);
+  color: var(--text-disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.chip-filter[disabled] .chip-filter-chevron,
+.chip-filter[aria-disabled="true"] .chip-filter-chevron {
+  color: var(--text-disabled);
+}
+
+/* ===== buttons.css ===== */
+/* ============================================================================
+   Vallejo Design System v1.2 — Buttons
+   Components: Button (.btn) and Watchlist (.watchlist)
+   ----------------------------------------------------------------------------
+   THE RULE: one Primary per view (the single most important action — bid, pay,
+   confirm). Primary + Destructive are RAISED (gradient fill + layered elevation).
+   Secondary/Quiet wear the raised KEY edge; Quiet is the flattest.
+   Heights: XS 28 · SM 32 · MD 40 · LG 48 · XL 56 (the 8px rhythm; MD is default).
+   Labels: Inter Medium (500), 12/14/14/16/18 across XS–XL.
+   Radius scales with height: SM 6 · MD/LG 8 · XL 12 (XS shares 6).
+   Optical padding: icon side pulls tighter than the text side.
+   All colors via tokens. Focus = solid 2px ring (no glow). 44px hit-area floor.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   Button — base
+   Native <button> (or role="button"). Inline-flex so icon + label center.
+   ---------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);                       /* default icon↔label gap; per-size below */
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);           /* MD/LG default; per-size below */
+  font-family: var(--font-sans);
+  font-weight: 500;                          /* Inter Medium */
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  color: var(--text-primary);
+  transition:
+    background-color var(--duration-fast) var(--ease-enter),
+    border-color var(--duration-fast) var(--ease-enter),
+    box-shadow var(--duration-fast) var(--ease-enter),
+    color var(--duration-fast) var(--ease-enter);
+}
+
+/* Focus is a STATE — native, solid 2px ring, concentric, no glow */
+.btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Disabled — multi-cue shift (ink + border drop + no hover response).
+   aria-disabled keeps the element in focus order; disabled removes it. */
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  pointer-events: none;                      /* kills hover/active response */
+  color: var(--text-disabled);               /* gray/400 */
+  background: var(--surface-sunken);         /* settled, de-emphasized */
+  border-color: var(--border-hairline);      /* border drops to gray/200 */
+  box-shadow: none;                          /* flat — no elevation when inert */
+}
+
+/* Loading — keep footprint; spinner swaps in via markup */
+.btn[aria-busy="true"] {
+  cursor: progress;
+}
+
+/* Icon — decorative glyph; label carries meaning.
+   Icon sizes track the size cuts (16/18/24); set per-size below. */
+.btn-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  fill: currentColor;
+  pointer-events: none;
+}
+
+/* ----------------------------------------------------------------------------
+   Button — types (fill ladders + raised material)
+   ---------------------------------------------------------------------------- */
+
+/* Primary — RAISED. Reserved for the single most important action.
+   Gradient blue fill + primary elevation; fill ladder darkens on press. */
+.btn-primary {
+  color: var(--text-inverse);
+  border-color: transparent;
+  background-image: linear-gradient(
+    var(--interactive-primary),
+    var(--interactive-primary-grad-end)
+  );
+  box-shadow: var(--elevation-primary-rest);
+}
+.btn-primary:hover {
+  background-image: linear-gradient(
+    var(--interactive-primary-hover),
+    var(--interactive-primary-grad-end)
+  );
+  box-shadow: var(--elevation-primary-hover);
+}
+.btn-primary:active {
+  background-image: linear-gradient(
+    var(--interactive-primary-active),
+    var(--interactive-primary-active)
+  );
+  box-shadow: var(--elevation-primary-pressed);
+}
+
+/* Destructive — RAISED. Error fill ladder; reserve for dangerous commits. */
+.btn-destructive {
+  color: var(--text-inverse);
+  border-color: transparent;
+  background-image: linear-gradient(
+    var(--interactive-destructive),
+    var(--interactive-destructive-grad-end)
+  );
+  box-shadow: var(--elevation-destructive-rest);
+}
+.btn-destructive:hover {
+  background-image: linear-gradient(
+    var(--interactive-destructive-hover),
+    var(--interactive-destructive-grad-end)
+  );
+  box-shadow: var(--elevation-destructive-hover);
+}
+.btn-destructive:active {
+  background-image: linear-gradient(
+    var(--interactive-destructive-active),
+    var(--interactive-destructive-active)
+  );
+  box-shadow: var(--elevation-destructive-pressed);
+}
+
+/* Secondary — fully neutral: white fill, ink label, refined-light border that
+   advances on approach (300 → 400 + gray/50 → 500 + gray/100). Wears the KEY edge. */
+.btn-secondary {
+  color: var(--text-primary);
+  background-color: var(--surface-raised);   /* white */
+  border-color: var(--border-default);       /* gray/300, decorative per W3C 1.4.11 */
+  box-shadow: var(--elevation-key);
+}
+.btn-secondary:hover {
+  background-color: var(--surface-canvas);   /* gray/50 */
+  border-color: var(--gray-400);             /* line advances */
+  box-shadow: var(--elevation-key-hover);
+}
+.btn-secondary:active {
+  background-color: var(--surface-sunken);   /* gray/100 */
+  border-color: var(--gray-500);
+  box-shadow: var(--elevation-key-pressed);
+}
+
+/* Quiet — text-only blue label; no fill/border at rest; the flattest type.
+   Blue belongs to Quiet labels (sanctioned blue use). */
+.btn-quiet {
+  color: var(--text-link);                   /* blue/600 */
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+.btn-quiet:hover {
+  background-color: var(--interactive-selected-wash);  /* blue/50 wash */
+  color: var(--text-link-hover);             /* blue/700 */
+}
+.btn-quiet:active {
+  background-color: var(--interactive-selected-fill);  /* blue/100 */
+  color: var(--text-link-hover);
+}
+
+/* ----------------------------------------------------------------------------
+   Button — sizes
+   Heights 28/32/40/48/56; radius + type size + optical padding per step.
+   Optical padding: text-side > icon-side. The icon-side class trims the side
+   that holds a leading/trailing glyph so the glyph sits optically centered.
+   ---------------------------------------------------------------------------- */
+
+/* XS — 28px · dense table rows only · radius 6 · 12/500 · icon 16 */
+.btn-xs {
+  height: 28px;
+  padding: 0 var(--space-3);                  /* 12 text-side */
+  border-radius: var(--radius-md);            /* 6 */
+  font-size: 12px;
+  gap: var(--space-1-5);                       /* 6 icon↔label */
+}
+.btn-xs .btn-icon { width: 16px; height: 16px; }
+
+/* SM — 32px · radius 6 · 14/500 · icon 16 */
+.btn-sm {
+  height: 32px;
+  padding: 0 var(--space-3);                  /* 12 text-side */
+  border-radius: var(--radius-md);            /* 6 */
+  font-size: 14px;
+  gap: var(--space-1-5);                       /* 6 */
+}
+.btn-sm .btn-icon { width: 16px; height: 16px; }
+
+/* MD — 40px · the lingua franca · radius 8 · 14/500 · icon 18 */
+.btn-md {
+  height: 40px;
+  padding: 0 var(--space-4);                  /* 16 text-side */
+  border-radius: var(--radius-lg);            /* 8 */
+  font-size: 14px;
+  gap: var(--space-2);                         /* 8 */
+}
+.btn-md .btn-icon { width: 18px; height: 18px; }
+
+/* LG — 48px · comfortable touch · radius 8 · 16/500 · icon 18 */
+.btn-lg {
+  height: 48px;
+  padding: 0 var(--space-4);                  /* 16 text-side */
+  border-radius: var(--radius-lg);            /* 8 */
+  font-size: 16px;
+  gap: var(--space-2);                         /* 8 */
+}
+.btn-lg .btn-icon { width: 18px; height: 18px; }
+
+/* XL — 56px · marketing heroes · radius 12 · 18/500 · icon 24 */
+.btn-xl {
+  height: 56px;
+  padding: 0 var(--space-5);                  /* 20 text-side */
+  border-radius: var(--radius-xl);            /* 12 */
+  font-size: 18px;
+  gap: var(--space-2);                         /* 8 */
+}
+.btn-xl .btn-icon { width: 24px; height: 24px; }
+
+/* Optical padding — the side that carries a glyph trims tighter than the text side,
+   but keeps REAL breathing room so the glyph never crowds the (hover) fill edge.
+   Icon-side stays one defined step under the text side (a ~4px optical asymmetry),
+   so a leading-icon button looks comfortable when its hover fill appears — never cramped:
+     XS/SM  text 12 → icon-side 8   (--space-2)
+     MD/LG  text 16 → icon-side 12  (--space-3)
+     XL     text 20 → icon-side 16  (--space-4)
+   The text side keeps its full size padding and the gap above spaces glyph↔label.
+   Defaults below cover MD/LG; XS/SM/XL override. All values are defined tokens. */
+.btn:has(> .btn-icon:first-child) { padding-left: var(--space-3); }   /* leading icon → trim left (12, MD/LG) */
+.btn:has(> .btn-icon:last-child)  { padding-right: var(--space-3); }  /* trailing icon → trim right (12, MD/LG) */
+.btn-xs:has(> .btn-icon:first-child) { padding-left: var(--space-2); } /* XS icon-side = 8 */
+.btn-xs:has(> .btn-icon:last-child)  { padding-right: var(--space-2); }
+.btn-sm:has(> .btn-icon:first-child) { padding-left: var(--space-2); } /* SM icon-side = 8 */
+.btn-sm:has(> .btn-icon:last-child)  { padding-right: var(--space-2); }
+.btn-xl:has(> .btn-icon:first-child) { padding-left: var(--space-4); } /* XL icon-side = 16 */
+.btn-xl:has(> .btn-icon:last-child)  { padding-right: var(--space-4); }
+
+/* Icon-only — square footprint sized to the control height (icon centered, no label,
+   no optical pull). Equal L/R padding collapses to the vertical padding (0), so the
+   button is exactly as wide as it is tall.
+   EXPLICIT modifier only: detection MUST use .btn-icon-only. We deliberately do NOT
+   use .btn:has(> .btn-icon:only-child) — the CSS :only-child pseudo-class ignores
+   text nodes, so a glyph sitting next to a BARE text label (e.g. <svg>All filters)
+   is still the only *element* child and would wrongly match, zeroing the horizontal
+   padding on real icon+text buttons. Wrap genuine icon-only buttons in .btn-icon-only. */
+.btn-icon-only {
+  padding-left: 0;
+  padding-right: 0;
+  gap: 0;
+  aspect-ratio: 1 / 1;
+}
+
+/* ----------------------------------------------------------------------------
+   Watchlist — save-to-list toggle (favorite/heart pattern)
+   A PILL (radius-pill) with a RED (red-500) heart. Two button-types × two sizes:
+     · Full    = heart + text label ("Watchlist" / "Watching")
+     · Compact = heart ONLY, circular (Medium 40px · Small 32px)
+     · Sizes   = Medium (default) · Small
+   Unsaved  (aria-pressed="false") = OUTLINE red heart + label "Watchlist"
+   Saved    (aria-pressed="true")  = FILLED  red heart + label "Watching"
+   Saved is conveyed by the FILLED red heart + the word "Watching" on a NEUTRAL
+   surface — NOT a blue selected-register. This is CVD-safe (shape + word carry
+   state, color is only reinforcement).
+   Surfaces: Default = white (surface-raised) + raised-key edge; Hover = gray-50;
+   Active = gray-100; Disabled = muted gray fill with gray-400 heart + label.
+
+   TOKEN NOTE: the heart uses the semantic --interactive-favorite alias (→ red-500,
+   i.e. --error-500) — the 500-step red, distinct from the destructive accent
+   (--error-600). "Favorite" intentionally shares the red ramp but is NOT a
+   destructive cue, so state is still carried by the FILLED heart + the word
+   "Watching," not color alone.
+   ---------------------------------------------------------------------------- */
+.watchlist {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);                         /* 8 heart↔label (Medium); Small below */
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);           /* PILL */
+  font-family: var(--font-sans);
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+  /* Base = Full + Medium (40px, 14px label, 16 text-side / 12 heart-side inset) */
+  height: 40px;
+  padding: 0 var(--space-4);                   /* 16 text-side */
+  padding-left: var(--space-3);                /* 12 heart-side optical inset */
+  font-size: 14px;
+  /* Surfaces are neutral in BOTH states — state lives in the heart + word.
+     Default = white + raised-key edge; Hover = gray-50; Active = gray-100. */
+  color: var(--text-primary);
+  background-color: var(--surface-raised);     /* white */
+  border-color: var(--border-hairline);        /* hairline pairs with the key edge */
+  box-shadow: var(--elevation-key);
+  transition:
+    background-color var(--duration-fast) var(--ease-enter),
+    border-color var(--duration-fast) var(--ease-enter),
+    box-shadow var(--duration-fast) var(--ease-enter),
+    color var(--duration-fast) var(--ease-enter);
+}
+
+/* Heart glyph — RED in every interactive state (outline vs filled is the markup
+   swap: icon.heart vs icon.heart-filled). Both SVGs paint via currentColor (the
+   outline strokes it, the filled fills it), so we set `color` — NOT `fill` — to
+   make the heart red while the label rides its own --text-primary color. */
+.watchlist-heart {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: var(--interactive-favorite);         /* red-500 (semantic favorite alias) — drives currentColor for BOTH the outline stroke and the filled fill */
+  pointer-events: none;
+}
+
+.watchlist:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.watchlist:hover {
+  background-color: var(--surface-canvas);     /* gray-50 */
+  box-shadow: var(--elevation-key-hover);
+}
+.watchlist:active {
+  background-color: var(--surface-sunken);     /* gray-100 */
+  box-shadow: var(--elevation-key-pressed);
+}
+
+/* Disabled — multi-cue: muted gray fill, gray-400 heart + label, flat, no hover */
+.watchlist[disabled],
+.watchlist[aria-disabled="true"] {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: var(--gray-400);
+  background-color: var(--surface-sunken);     /* gray-100 muted fill */
+  border-color: var(--border-hairline);
+  box-shadow: none;
+}
+.watchlist[disabled] .watchlist-heart,
+.watchlist[aria-disabled="true"] .watchlist-heart {
+  color: var(--gray-400);                      /* heart de-saturates with the label (drives currentColor) */
+}
+
+/* Full — labeled pill. The base .watchlist already IS Full + Medium, so
+   .watchlist-full is an explicit-markup alias and needs no overrides. */
+
+/* Small — Full pill at 32px · 13px label · tighter insets.
+   Heart-side stays inset from the border (never flush). */
+.watchlist-small {
+  height: 32px;
+  gap: var(--space-1-5);                       /* 6 heart↔label */
+  padding: 0 var(--space-3);                   /* 12 text-side */
+  padding-left: var(--space-2);                /* 8 heart-side optical inset */
+  font-size: 13px;
+}
+.watchlist-small .watchlist-heart { width: 16px; height: 16px; }
+
+/* Compact — heart ONLY, circular. Medium = 40px, Small = 32px.
+   No label → square footprint, no optical pull, centered heart. */
+.watchlist-compact {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  gap: 0;
+  border-radius: var(--radius-full);           /* circle */
+}
+/* Compact + Small = 32px circle */
+.watchlist-compact.watchlist-small {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+}
+.watchlist-compact.watchlist-small .watchlist-heart { width: 16px; height: 16px; }
+
+/* 44px hit-area floor — expand beyond the 32px visual without growing the circle.
+   Applied to the Small Full pill and the Small compact circle. */
+.watchlist-small { position: relative; }
+.watchlist-small::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  min-width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
+/* ===== content.css ===== */
+/* =============================================================================
+   Vallejo 1.2 — Content components
+   Lot Card · Stat Card · Table (Row / Cell / filter bar) · List Row ·
+   Bulk action bar · Accordion · Empty state
+   -----------------------------------------------------------------------------
+   QUIET SURFACE MODEL (the spine of this group):
+     resting surface = var(--surface-raised) (white) + var(--border-hairline)
+     (gray/200) ring · NO zebra · NO resting shadow. Color is reserved for
+     status (badges/tags) and interactivity (selected register, focus, CTA).
+   SELECTED REGISTER (rows/options): var(--interactive-selected-wash) (blue/50)
+     fill + var(--border-focus) (blue/600) 2px left accent + checked box.
+   MONO (.input-mono) carries: VIN · lot # · bid · count · timestamp.
+   All colors via var(--token). Heights/icon px may be literal to the contract.
+   ========================================================================== */
+
+
+/* =============================================================================
+   LOT CARD — the keystone Copart vehicle-listing component
+   Quiet surface, radius xl. Photo carries the Live badge + Watchlist overlay.
+   Current bid in mono; "Bid now" Primary CTA.
+   ========================================================================== */
+
+.lot-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans);
+}
+
+/* Media — 4:3 portrait frame; the overlay anchors live here */
+.lot-card-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-sunken); /* photo placeholder while loading */
+}
+
+.lot-card-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Status badge — overlaid top-left over the photo */
+.lot-card-status {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+}
+
+/* Watchlist heart — overlaid top-right over the photo (Small, floating) */
+.lot-card-watch {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+}
+
+/* Body — stacked: brand tag · title · meta · bid · CTA */
+.lot-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+
+/* Title — Title 3 (Inter 600 20/28) */
+.lot-card-title {
+  margin: 0;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Meta line — lot # + location · Footnote (Inter 400 13/16) tertiary */
+.lot-card-meta {
+  margin: 0;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  color: var(--text-tertiary);
+}
+
+/* Bid block — label over a hero mono value */
+.lot-card-bid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+  margin-top: var(--space-1);
+}
+
+.lot-card-bid-label {
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  color: var(--text-tertiary);
+}
+
+/* Current bid — prominent Inter price (like the Stat Card hero), tabular for
+   alignment. NOT mono: family is Inter even if .input-mono is on the element. */
+.lot-card-bid-value {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* CTA stretches full card width */
+.lot-card-cta {
+  margin-top: var(--space-2);
+  width: 100%;
+}
+
+
+/* =============================================================================
+   STAT CARD — KPI tile. Quiet white card, radius xl.
+   Value = Title 1 (Inter, NOT mono, tabular). Label + delta = Footnote.
+   Delta shows MAGNITUDE only; the arrow + sign carry direction (not color
+   alone). Up = success-text, Down = error-text — chosen per metric.
+   ========================================================================== */
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans);
+}
+
+/* Label — Footnote, tertiary */
+.stat-card-label {
+  margin: 0;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  color: var(--text-tertiary);
+}
+
+/* Value — Title 1 (Inter 600 28/36), hero singular number, tabular figures */
+.stat-card-value {
+  margin: 0;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Delta — Footnote; neutral by default (Trend=None) */
+.stat-card-delta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin: 0;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Trend tones color the delta + arrow together (sign carries it without color) */
+.stat-card-up .stat-card-delta { color: var(--success-accent); }
+.stat-card-down .stat-card-delta { color: var(--error-accent); }
+
+/* Arrow glyph — decorative; meaning lives in the sign + the delta text */
+.stat-card-arrow {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+/* Optional sparkline — blue mini-trend that stretches the card width */
+.stat-card-sparkline {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-2);
+  color: var(--interactive-primary);
+}
+
+
+/* =============================================================================
+   TABLE — Row + Cell + filter bar
+   Quiet surface: white rows, gray/100 hairline dividers, NO zebra.
+   Comfortable density only. Mono follows the Read-vs-Compare law.
+   ========================================================================== */
+
+/* Optional wrapping table — quiet surface ring + radius (rows weld inside) */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface-raised);
+  font-family: var(--font-sans);
+}
+
+/* --- Table Row -------------------------------------------------------------
+   Default white · Hover gray/50 · Selected = gray/50 + 2px blue/600 left
+   accent bar + checked box. Hairline gray/100 divider between rows. */
+.table-row {
+  position: relative;
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--surface-sunken); /* gray/100 divider */
+}
+
+.table-row:hover {
+  background: var(--surface-canvas); /* gray/50 */
+}
+
+/* Selected — wash + a 2px blue/600 left accent bar (rendered as a left border
+   on the first cell so it doesn't disturb the row box) */
+.table-row[aria-selected="true"] {
+  background: var(--surface-canvas);
+}
+
+.table-row[aria-selected="true"] > .table-cell:first-child {
+  box-shadow: inset 2px 0 0 0 var(--border-focus); /* blue/600 accent bar */
+}
+
+/* --- Table Cell ------------------------------------------------------------
+   52px comfortable height; transparent (the Row supplies the fill). */
+.table-cell {
+  height: 52px;
+  padding: 0 var(--space-4);
+  text-align: left;
+  vertical-align: middle;
+  background: transparent;
+  font-size: 14px;            /* Body Small */
+  line-height: 20px;
+  color: var(--text-primary);
+}
+
+/* Column header — Subheadline (Inter 600 14/20), tertiary, sortable */
+.table-cell-header,
+th.table-cell {
+  height: 44px;
+  font-weight: 600;
+  letter-spacing: 0.07px;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--border-hairline); /* gray/200 header rule */
+}
+
+/* Checkbox cell — snug leading column */
+.table-cell-checkbox {
+  width: 1%;
+  padding-right: 0;
+  white-space: nowrap;
+}
+
+/* Stacked cell — title + mono secondary (e.g. Vehicle + VIN) */
+.table-cell-stacked {
+  display: table-cell;
+}
+
+.table-cell-title {
+  display: block;
+  color: var(--text-primary);
+}
+
+.table-cell-sub {
+  display: block;
+  margin-top: var(--space-0-5);
+  font-size: 13px;            /* Mono/Small when .input-mono is applied */
+  line-height: 16px;
+  color: var(--text-tertiary);
+}
+
+/* Numeric cell — right-aligned (bids / odometer / counts), mono via .input-mono */
+.table-cell-numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Actions cell — trailing kebab, right-aligned */
+.table-cell-actions {
+  width: 1%;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* --- Table filter bar ------------------------------------------------------
+   Welds to the top of a data-table card: shares fill + gray/200 ring + radius.
+   Bottom gray/200 hairline divides it from the column-header row. */
+.table-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-hairline);
+  border-top-left-radius: var(--radius-xl);
+  border-top-right-radius: var(--radius-xl);
+  border-bottom-color: var(--border-hairline); /* divides from header row */
+  font-family: var(--font-sans);
+}
+
+/* Vertical divider between visible chips and the "All filters" / search group */
+.table-filter-divider {
+  width: 1px;
+  align-self: stretch;
+  min-height: 24px;
+  margin: 0 var(--space-1);
+  background: var(--border-hairline); /* gray/200 */
+}
+
+/* Search pushes to the right edge of the bar */
+.table-filter-search {
+  margin-left: auto;
+}
+
+
+/* =============================================================================
+   LIST ROW — single-column vertical lists (saved searches, notifications,
+   members, documents). For data grids use Table Row instead.
+   Quiet surface · hairline gray/100 divider · NO zebra.
+   ========================================================================== */
+
+.list-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--surface-sunken); /* gray/100 divider */
+  text-align: left;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  /* button reset (the whole row may be an <a> or <button>) */
+  font: inherit;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-enter);
+}
+
+.list-row:hover {
+  background: var(--surface-canvas); /* gray/50 */
+}
+
+.list-row:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -2px; /* inset so the ring stays inside the row edges */
+}
+
+/* Leading — Icon tile or Avatar circle */
+.list-row-leading {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon-leading: icon.* in a gray/100 tile (40px) */
+.list-row-leading-icon .list-row-leading {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: var(--surface-sunken); /* gray/100 tile */
+  color: var(--text-tertiary);
+}
+
+.list-row-leading-icon .list-row-leading svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Content — title + optional subtitle; takes the remaining width */
+.list-row-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/* Title — List Title (Inter 500 15/20), primary */
+.list-row-title {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Subtitle — Footnote (Inter 400 13/16), tertiary */
+.list-row-subtitle {
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  color: var(--text-tertiary);
+}
+
+/* Trailing chevron — navigational →, icon/muted */
+.list-row-chevron {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--text-tertiary);
+}
+
+/* Trailing meta — date / value / status text, tertiary, right-aligned */
+.list-row-meta {
+  flex: none;
+  margin-left: auto;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  color: var(--text-tertiary);
+  text-align: right;
+}
+
+
+/* =============================================================================
+   BULK ACTION BAR — appears on row selection. The Primary commit lives RIGHT.
+   Docked  = white + top hairline, NO shadow (reserves height / pushes content).
+   Overlay = dark chrome + upward elevation (sticky, floats over content).
+   ========================================================================== */
+
+.bulk-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-sans);
+}
+
+.bulk-bar-left,
+.bulk-bar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Selection count — ✓ + count; mono-friendly count via .input-mono if numeric */
+.bulk-bar-count {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.bulk-bar-count svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--success-accent); /* the ✓ that confirms the selection */
+}
+
+/* Divider between the count and the contextual actions */
+.bulk-bar-divider {
+  width: 1px;
+  align-self: stretch;
+  min-height: 20px;
+  background: var(--border-hairline); /* gray/200 */
+}
+
+/* --- Docked: white + top hairline, reserves height, NO shadow --- */
+.bulk-bar-docked {
+  background: var(--surface-raised);
+  border-top: 1px solid var(--border-hairline);
+}
+
+/* --- Overlay: dark chrome + upward elevation, pins to viewport bottom --- */
+.bulk-bar-overlay {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--layer-sticky);
+  background: var(--surface-header-bg);
+  border-radius: var(--radius-xl);
+  /* upward elevation — sanctioned floating-surface shadow */
+  box-shadow: var(--shadow-key-drop-hover) 0 -4px 16px 0;
+  color: var(--text-inverse);
+}
+
+.bulk-bar-overlay .bulk-bar-count {
+  color: var(--text-inverse);
+}
+
+.bulk-bar-overlay .bulk-bar-divider {
+  background: var(--surface-header-field); /* divider reads on dark chrome */
+}
+
+/* Focus on dark chrome uses the on-dark ring */
+.bulk-bar-overlay :focus-visible {
+  outline: 2px solid var(--border-focus-on-dark);
+  outline-offset: 2px;
+}
+
+
+/* =============================================================================
+   ACCORDION — collapsible disclosure. One header button toggles one panel.
+   Collapsed = chevron-down · Expanded = chevron-up + panel · Hover = gray/50.
+   Quiet surface · hairline gray/200 between items.
+   ========================================================================== */
+
+.accordion {
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+  background: var(--surface-raised);
+  font-family: var(--font-sans);
+}
+
+/* Header is a heading element that wraps the trigger button — no chrome of its own */
+.accordion-header {
+  margin: 0;
+  font: inherit;
+}
+
+/* Trigger — full-width row: title left, chevron right */
+.accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-4);
+  background: transparent;
+  border: 0;
+  font-family: inherit;
+  font-size: 15px;            /* List Title */
+  line-height: 20px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.accordion-trigger:hover {
+  background: var(--surface-canvas); /* gray/50 header wash */
+}
+
+.accordion-trigger:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -2px;
+}
+
+/* Chevron — decorative; rotates via the expanded state (chevron-up when open) */
+.accordion-chevron {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--text-tertiary);
+  transition: transform var(--duration-normal) var(--ease-enter);
+}
+
+/* Panel — collapsible region; Body Small reading text */
+.accordion-panel {
+  padding: 0 var(--space-4) var(--space-4);
+  font-size: 14px;            /* Body Small */
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+/* Collapsed panel is hidden via [hidden] on the panel element in markup */
+.accordion-panel[hidden] {
+  display: none;
+}
+
+
+/* =============================================================================
+   EMPTY STATE — what a region shows when it has nothing.
+   Quiet line-icon (no illustration); transparent — the container supplies the
+   border. Default (page/full-table) vs Compact (card/inline).
+   ========================================================================== */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: transparent;
+  font-family: var(--font-sans);
+}
+
+/* Icon — gray/100 circle holding an icon/muted glyph */
+.empty-state-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--surface-sunken); /* gray/100 */
+  color: var(--text-tertiary);       /* icon/muted */
+}
+
+.empty-state-title {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+/* Body — text/secondary, wraps to a readable measure */
+.empty-state-body {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+/* --- Default: page / full-table region — 56px icon, Title 3, ~320 wrap --- */
+.empty-state-default {
+  gap: var(--space-4);
+  padding: var(--space-12) var(--space-6);
+}
+
+.empty-state-default .empty-state-icon {
+  width: 56px;
+  height: 56px;
+}
+
+.empty-state-default .empty-state-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.empty-state-default .empty-state-title {
+  font-size: 20px;            /* Title 3 */
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.empty-state-default .empty-state-body {
+  max-width: 320px;
+  font-size: 14px;            /* Body Small */
+  line-height: 20px;
+}
+
+/* --- Compact: card / inline — 40px icon, List Title, ~240 wrap --- */
+.empty-state-compact {
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-4);
+}
+
+.empty-state-compact .empty-state-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.empty-state-compact .empty-state-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.empty-state-compact .empty-state-title {
+  font-size: 15px;            /* List Title */
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.empty-state-compact .empty-state-body {
+  max-width: 240px;
+  font-size: 13px;            /* Footnote */
+  line-height: 16px;
+  letter-spacing: 0.13px;
+}
+
+/* ===== inputs.css ===== */
+/* ============================================================================
+   Vallejo Design System v1.2 — Inputs
+   Text Field · Text Area · Search · Select (+ Menu, Option) · Toggle ·
+   Checkbox · Radio · Slider
+   ----------------------------------------------------------------------------
+   STATE GRAMMAR (shared by Text Field / Text Area / Search / Select):
+   - Inputs differ from buttons: an empty field's BOUNDARY is its identifier,
+     so the rest border is heavier — gray/500 (--border-control, 3.65:1).
+     (Search & Select-closed use the refined-light ladder: gray/300 -> 400 -> blue.)
+   - "Error owns hue / focus owns weight": focus = solid 2px blue ring;
+     error = error/600 border + hue, never a heavier ring alone.
+   - All colors via var(--token). Dimensions in px to match the contract.
+   ========================================================================== */
+
+
+/* ============================================================================
+   1. FIELD SCAFFOLD — label / helper / error / success / optional
+   Used by Text Field, Text Area, and Select.
+   ========================================================================== */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5); /* 6px between label, control, helper */
+}
+
+/* Label above — Body Small / Medium (14 / 500) */
+.field-label {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--text-primary);
+}
+
+/* "(Optional)" is plain inline text — NEVER a required star */
+.field-optional {
+  font-weight: 400;
+  color: var(--text-tertiary);
+}
+
+/* Helper below — Footnote (13 / 16) */
+.field-helper {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  color: var(--text-tertiary);
+}
+
+/* Error message — error owns the hue */
+.field-error {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  color: var(--error-accent); /* error/600 */
+}
+
+/* Success message */
+.field-success {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  color: var(--success-accent); /* success/600 */
+}
+
+
+/* ============================================================================
+   2. TEXT FIELD — .input (+ .input-sm / .input-md / .input-lg, .input-mono)
+   Refined empty-field boundary = --border-control (gray/500, 3.65:1).
+   ========================================================================== */
+
+.input {
+  /* box */
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-control);
+  border-radius: var(--radius-md);
+  /* type — value ink */
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  /* motion */
+  transition:
+    border-color var(--duration-fast) var(--ease-enter),
+    background-color var(--duration-fast) var(--ease-enter);
+}
+
+/* Placeholder = gray, value = ink */
+.input::placeholder {
+  color: var(--text-tertiary);
+  opacity: 1; /* normalize Firefox */
+}
+
+/* Sizes (heights on the 8px rhythm) */
+.input-sm {
+  height: 32px;
+  padding: 0 var(--space-3); /* 12px */
+  font-size: 13px;
+  line-height: 16px;
+}
+.input-md {
+  height: 40px;
+  padding: 0 var(--space-3); /* 12px */
+  font-size: 14px;
+  line-height: 20px;
+}
+.input-lg {
+  height: 48px;
+  padding: 0 var(--space-4); /* 16px */
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* VIN / lot # / amount values render in mono */
+.input-mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+/* Hover — the line advances (refined-light approach) */
+.input:hover:not(:disabled):not([aria-invalid="true"]) {
+  border-color: var(--gray-600);
+}
+
+/* Focus owns weight — solid 2px blue ring, concentric */
+.input:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-color: var(--border-focus);
+}
+
+/* Error owns hue */
+.input[aria-invalid="true"] {
+  border-color: var(--error-accent); /* error/600 */
+}
+.input[aria-invalid="true"]:focus-visible {
+  outline-color: var(--error-accent);
+}
+
+/* Disabled — large delta: gray/100 fill, gray/200 border, gray/400 ink */
+.input:disabled {
+  background-color: var(--surface-sunken); /* gray/100 */
+  border-color: var(--border-hairline);    /* gray/200 */
+  color: var(--text-disabled);             /* gray/400 */
+  cursor: not-allowed;
+}
+
+
+/* ============================================================================
+   3. TEXT AREA — .textarea + .textarea-footer / .textarea-count
+   Same state grammar as Text Field; multiline, value top-aligned.
+   ========================================================================== */
+
+.textarea {
+  display: block;
+  width: 100%;
+  min-height: 96px; /* default height (resizable per instance) */
+  box-sizing: border-box;
+  padding: var(--space-2) var(--space-3); /* 8 / 12 */
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-control);
+  border-radius: var(--radius-md);
+  /* type — line-height 20 on the grid, top-aligned by default */
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-primary);
+  resize: vertical;
+  transition:
+    border-color var(--duration-fast) var(--ease-enter),
+    background-color var(--duration-fast) var(--ease-enter);
+}
+
+.textarea::placeholder {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+
+.textarea:hover:not(:disabled):not([aria-invalid="true"]) {
+  border-color: var(--gray-600);
+}
+
+.textarea:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-color: var(--border-focus);
+}
+
+.textarea[aria-invalid="true"] {
+  border-color: var(--error-accent);
+}
+.textarea[aria-invalid="true"]:focus-visible {
+  outline-color: var(--error-accent);
+}
+
+.textarea:disabled {
+  background-color: var(--surface-sunken);
+  border-color: var(--border-hairline);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+/* Footer row: helper (left) + character counter (right) */
+.textarea-footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+/* Counter is a small caption -> sans/body (Inter), right-aligned */
+.textarea-count {
+  flex: none;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--text-tertiary);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Over-limit: the count turns error/700 — the count is the evidence */
+.textarea-count[data-over-limit="true"] {
+  color: var(--error-dark); /* error/800 ramp dark; over-limit emphasis */
+}
+
+
+/* ============================================================================
+   4. SEARCH — .search (+ .search-sm/-md/-lg), .search-input,
+      .search-icon-lead, .search-clear, .search-suggestions / .search-suggestion
+   Standalone (NOT a Text Field kind). Refined-light border ladder.
+   Trailing icon swaps: search glass (empty) -> clear x-circle (typed).
+   ========================================================================== */
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2); /* 8px between lead icon and input */
+  box-sizing: border-box;
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-default); /* refined-light: rest gray/300 */
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--duration-fast) var(--ease-enter);
+}
+
+/* Sizes */
+.search-sm {
+  height: 32px;
+  padding: 0 var(--space-3);
+}
+.search-md {
+  height: 40px;
+  padding: 0 var(--space-3);
+}
+.search-lg {
+  height: 48px;
+  padding: 0 var(--space-4);
+}
+
+/* Leading search glass */
+.search-icon-lead {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--text-tertiary);
+  fill: currentColor;
+}
+
+/* Bare field — no own border/background (the wrapper owns the chrome) */
+.search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-primary);
+}
+.search-input::placeholder {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+.search-input:focus {
+  outline: none; /* focus ring is carried by the wrapper */
+}
+/* Remove native WebKit search decorations (we supply our own clear button) */
+.search-input::-webkit-search-decoration,
+.search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Hover — line advances to gray/400 */
+.search:hover:not([aria-disabled="true"]) {
+  border-color: var(--gray-400);
+}
+
+/* Focus owns weight — blue 2px ring on the wrapper */
+.search:focus-within {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-color: var(--border-focus);
+}
+
+/* Disabled */
+.search[aria-disabled="true"] {
+  background-color: var(--surface-sunken);
+  border-color: var(--border-hairline);
+  cursor: not-allowed;
+}
+.search[aria-disabled="true"] .search-input {
+  color: var(--text-disabled);
+}
+
+/* Trailing clear x-circle (appears once typed) */
+.search-clear {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-full);
+}
+.search-clear svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+.search-clear:hover {
+  color: var(--text-secondary);
+}
+.search-clear:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Autocomplete: suggestion menu locked beneath (Elevation/Overlay) */
+.search-suggestions {
+  position: absolute;
+  top: calc(100% + var(--space-1));
+  left: 0;
+  right: 0;
+  z-index: var(--layer-dropdown);
+  margin: 0;
+  padding: var(--space-1);
+  list-style: none;
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-hairline); /* gray/200 */
+  border-radius: var(--radius-xl);
+  /* Elevation/Overlay float — built from shadow color tokens (offsets are dims) */
+  box-shadow:
+    0 1px 2px 0 var(--shadow-key-edge),
+    0 8px 24px -4px var(--shadow-primary-contact);
+}
+
+.search-suggestion {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 36px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.search-suggestion svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--text-tertiary);
+  fill: currentColor;
+}
+.search-suggestion:hover,
+.search-suggestion[aria-selected="true"] {
+  background-color: var(--surface-canvas); /* gray/50 hover row */
+}
+
+
+/* ============================================================================
+   5. SELECT — .select (+ .select-sm/-md/-lg), .select-value, .select-chevron
+   Closed states inherit the Text Field contract (empty boundary identifier).
+   ========================================================================== */
+
+.select {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-control); /* empty field boundary = gray/500 */
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-enter),
+    background-color var(--duration-fast) var(--ease-enter);
+}
+
+/* Sizes mirror Text Field */
+.select-sm {
+  height: 32px;
+  padding: 0 var(--space-3);
+  font-size: 13px;
+  line-height: 16px;
+}
+.select-md {
+  height: 40px;
+  padding: 0 var(--space-3);
+  font-size: 14px;
+  line-height: 20px;
+}
+.select-lg {
+  height: 48px;
+  padding: 0 var(--space-4);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* Value fills, placeholder-style when empty handled per instance */
+.select-value {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Trailing chevron — flips up when open via markup (#icon-chevron-up) */
+.select-chevron {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--text-tertiary);
+  fill: currentColor;
+}
+
+.select:hover:not(:disabled):not([aria-invalid="true"]) {
+  border-color: var(--gray-600);
+}
+
+.select:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-color: var(--border-focus);
+}
+
+/* Open = focused trigger; keep blue ring + border while expanded */
+.select[aria-expanded="true"] {
+  border-color: var(--border-focus);
+}
+
+.select[aria-invalid="true"] {
+  border-color: var(--error-accent);
+}
+.select[aria-invalid="true"]:focus-visible {
+  outline-color: var(--error-accent);
+}
+
+.select:disabled {
+  background-color: var(--surface-sunken);
+  border-color: var(--border-hairline);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+
+/* ============================================================================
+   6. SELECT MENU — .select-menu (+ .select-menu-search),
+      .select-menu-search-header / -input / -clear, .select-menu-list
+   Floating menu for Select. Container radius 12, Elevation/Overlay, gray/200.
+   ========================================================================== */
+
+.select-menu {
+  position: absolute;
+  top: 100%;   /* anchor to the trigger's bottom edge */
+  left: 0;     /* align to the trigger's left edge; min-width:100% matches its width */
+  z-index: var(--layer-dropdown);
+  margin: var(--space-1) 0 0;  /* small gap below the trigger */
+  padding: var(--space-1);
+  list-style: none;
+  min-width: 100%;
+  box-sizing: border-box;
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-hairline); /* gray/200 */
+  border-radius: var(--radius-xl);           /* 12 */
+  /* Elevation/Overlay float — built from shadow color tokens (offsets are dims) */
+  box-shadow:
+    0 1px 2px 0 var(--shadow-key-edge),
+    0 8px 24px -4px var(--shadow-primary-contact);
+}
+
+/* Search kind = filter header + scrollable option list */
+.select-menu-search {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* Filter header — a searchbox that filters the options below */
+.select-menu-search-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 36px;
+  padding: 0 var(--space-2);
+  border-bottom: 1px solid var(--border-hairline);
+}
+.select-menu-search-header svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--text-tertiary);
+  fill: currentColor;
+}
+
+.select-menu-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-primary);
+}
+.select-menu-search-input::placeholder {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+.select-menu-search-input:focus {
+  outline: none;
+}
+
+/* Same clear affordance as Search — x-circle once text typed */
+.select-menu-search-clear {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-full);
+}
+.select-menu-search-clear svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+.select-menu-search-clear:hover {
+  color: var(--text-secondary);
+}
+.select-menu-search-clear:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Options list inside the search-kind menu */
+.select-menu-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+/* ============================================================================
+   7. SELECT OPTION — .select-option (+ .select-option-multi),
+      .select-option-label, .select-option-check
+   36px rows. Selected row wears the SELECTED REGISTER
+   (blue/50 wash + blue/800 medium label).
+   ========================================================================== */
+
+.select-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 36px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.select-option-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Single: selected = leading/trailing blue check + blue/800 label.
+   The check belongs ONLY to the selected row, so it is hidden by default
+   and revealed when the row carries aria-selected="true". */
+.select-option-check {
+  flex: none;
+  display: none;
+  width: 16px;
+  height: 16px;
+  color: var(--blue-800);
+  fill: currentColor;
+}
+
+.select-option[aria-selected="true"] > .select-option-check {
+  display: block;
+}
+
+/* Hover (unselected) = gray/50 */
+.select-option:hover:not([aria-disabled="true"]) {
+  background-color: var(--surface-canvas); /* gray/50 */
+}
+
+/* Selected register: blue/50 wash + blue/800 medium label */
+.select-option[aria-selected="true"] {
+  background-color: var(--interactive-selected-wash); /* blue/50 */
+  color: var(--blue-800);
+  font-weight: 500;
+}
+
+/* Selected Hover = deepened blue/50 */
+.select-option[aria-selected="true"]:hover:not([aria-disabled="true"]) {
+  background-color: var(--interactive-selected-fill); /* blue/100 */
+}
+
+/* Disabled row */
+.select-option[aria-disabled="true"] {
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+
+/* ============================================================================
+   8. TOGGLE — .toggle (+ .toggle-default / .toggle-small), .toggle-field
+   NATIVE checkbox styled as a switch — toggles with click/Space, no JS.
+   Recessed track + raised-key white thumb (drawn via ::after on the box).
+   Off track gray/300 -> On track blue/600 (state in luminance, not hue alone).
+   ========================================================================== */
+
+/* Label wrapper: switch + text */
+.toggle-field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+/* The box IS the track — native checkbox with appearance stripped.
+   NOTE: every STATE rule below is qualified with input[type="checkbox"] so it
+   matches the base selector's specificity (0,2,1). A bare `.toggle:checked`
+   (0,2,0) would LOSE to this base rule and the OFF gray would bleed onto the
+   ON track — that was the reported "gray on-track" bug. */
+input[type="checkbox"].toggle {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  flex: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  background-color: var(--gray-400); /* OFF track — quiet recessed well */
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background-color var(--duration-normal) var(--ease-enter);
+}
+
+/* Raised-key white thumb */
+input[type="checkbox"].toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-raised); /* white thumb */
+  box-shadow: var(--elevation-key); /* raised-key drop shadow */
+  transition: transform var(--duration-normal) var(--ease-spring);
+}
+
+/* Sizes — Default 36x20, Small 30x16 (default size when no modifier given) */
+.toggle {
+  width: 36px;
+  height: 20px;
+}
+.toggle::after {
+  width: 16px;
+  height: 16px;
+}
+.toggle-small {
+  width: 30px;
+  height: 16px;
+}
+.toggle-small::after {
+  width: 12px;
+  height: 12px;
+}
+
+/* Off Hover deepens the track one step */
+input[type="checkbox"].toggle:hover:not(:checked):not(:disabled) {
+  background-color: var(--gray-500);
+}
+
+/* ON — track jumps to blue/600, thumb slides right */
+input[type="checkbox"].toggle:checked {
+  background-color: var(--interactive-primary); /* blue/600 */
+}
+input[type="checkbox"].toggle:checked::after {
+  transform: translateX(16px); /* Default: 36 - 16 thumb - 2*2 inset */
+}
+input[type="checkbox"].toggle-small:checked::after {
+  transform: translateX(14px); /* Small: 30 - 12 thumb - 2*2 inset */
+}
+
+/* On Hover deepens to blue/700 */
+input[type="checkbox"].toggle:hover:checked:not(:disabled) {
+  background-color: var(--interactive-primary-hover); /* blue/700 */
+}
+
+/* Focus = 2px blue ring */
+.toggle:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Disabled — muted for BOTH off and on: light gray/300 track + light thumb */
+input[type="checkbox"].toggle:disabled {
+  cursor: not-allowed;
+  background-color: var(--gray-300);
+}
+input[type="checkbox"].toggle:disabled:checked {
+  background-color: var(--gray-300);
+}
+input[type="checkbox"].toggle:disabled::after {
+  background-color: var(--gray-200); /* light thumb, no lift */
+  box-shadow: none;
+}
+
+
+/* ============================================================================
+   9. CHECKBOX — .checkbox (+ .checkbox-large), .checkbox-field
+   The box IS the control -> 3:1 boundary: unchecked = gray/500 1.5px.
+   ========================================================================== */
+
+.checkbox-field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.checkbox {
+  flex: none;
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: var(--surface-raised);
+  border: 1.5px solid var(--border-control); /* gray/500, 3.65:1 */
+  border-radius: var(--radius-sm);            /* 4 */
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-enter),
+    border-color var(--duration-fast) var(--ease-enter);
+}
+
+/* Large = 20, radius 5 */
+.checkbox-large {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+}
+
+/* Hover = border gray/700 */
+.checkbox:hover:not(:disabled) {
+  border-color: var(--gray-700);
+}
+
+/* Checked / Indeterminate = blue/600 fill + white glyph (interactive register) */
+.checkbox:checked,
+.checkbox[data-checked="true"],
+.checkbox[aria-checked="mixed"] {
+  background-color: var(--interactive-primary); /* blue/600 */
+  border-color: var(--interactive-primary);
+}
+
+/* White check glyph (drawn with a rotated border).
+   Centered via 50%/50% + translate so the tick sits optically dead-center in
+   the box at any size. The check's own box is offset by a hair (the rotated
+   stroke is bottom-heavy on the long arm) so the visual mass — not the glyph
+   bounding box — lands on center. */
+.checkbox:checked::after,
+.checkbox[data-checked="true"]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 9px;
+  border: solid var(--text-inverse); /* white */
+  border-width: 0 2px 2px 0;
+  /* nudge up-left in glyph space before the 45° turn, so the long arm's
+     extra reach doesn't push the mass low-right */
+  transform: translate(-50%, -60%) rotate(45deg);
+}
+.checkbox-large:checked::after,
+.checkbox-large[data-checked="true"]::after {
+  width: 6px;
+  height: 11px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Indeterminate = white dash glyph */
+.checkbox[aria-checked="mixed"]::after,
+.checkbox:indeterminate::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 2px;
+  transform: translate(-50%, -50%);
+  background-color: var(--text-inverse); /* white */
+  border-radius: var(--radius-pill);
+}
+
+/* Focus = 2px blue/600 concentric ring */
+.checkbox:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Disabled = gray/100 fill + gray/300 border */
+.checkbox:disabled {
+  background-color: var(--surface-sunken); /* gray/100 */
+  border-color: var(--border-default);     /* gray/300 */
+  cursor: not-allowed;
+}
+/* Disabled-checked = gray/300 fill */
+.checkbox:disabled:checked,
+.checkbox:disabled[data-checked="true"] {
+  background-color: var(--border-default); /* gray/300 */
+  border-color: var(--border-default);
+}
+
+
+/* ============================================================================
+   10. RADIO — .radio (+ .radio-large), .radio-field, .radio-group
+   The circle IS the control -> unselected = gray/500 1.5px (3.65:1).
+   ========================================================================== */
+
+/* Group container */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.radio-field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.radio {
+  flex: none;
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: var(--surface-raised);
+  border: 1.5px solid var(--border-control); /* gray/500, 3.65:1 */
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-enter);
+}
+
+.radio-large {
+  width: 20px;
+  height: 20px;
+}
+
+/* Hover = gray/700 */
+.radio:hover:not(:disabled) {
+  border-color: var(--gray-700);
+}
+
+/* Selected = blue/600 ring + centered blue/600 dot with a white gap */
+.radio:checked {
+  border-color: var(--interactive-primary); /* blue/600 ring */
+}
+.radio:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  background-color: var(--interactive-primary); /* blue/600 dot */
+  border-radius: var(--radius-full);
+}
+.radio-large:checked::after {
+  width: 10px;
+  height: 10px;
+}
+
+/* Focus = 2px blue/600 ring */
+.radio:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Disabled = gray/100 + gray/300 */
+.radio:disabled {
+  background-color: var(--surface-sunken); /* gray/100 */
+  border-color: var(--border-default);     /* gray/300 */
+  cursor: not-allowed;
+}
+/* Disabled-selected dot = gray/400 */
+.radio:disabled:checked::after {
+  background-color: var(--text-disabled); /* gray/400 */
+}
+
+
+/* ============================================================================
+   11. SLIDER — .slider
+   NATIVE range input — drags with pointer + arrow keys/Home/End, no JS.
+   accent-color paints the filled track + thumb as the modern baseline; the
+   explicit ::track / ::thumb pseudo-elements layer the Vallejo material on top:
+   recessed track (--surface-sunken well) + raised-key white thumb 18px.
+   Same rise/recess language as the Toggle.
+   SINGLE-THUMB ONLY. A dual-handle range (min + max) is not expressible with a
+   single native <input type="range"> — that needs JS (e.g. two stacked inputs
+   or a headless range lib). Build .slider-range as a JS component if required.
+   ========================================================================== */
+
+input[type="range"].slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 18px; /* clears the 18px thumb */
+  margin: 0;
+  background: transparent; /* track painted on the ::track pseudo-element */
+  accent-color: var(--interactive-primary); /* blue/600 — filled track + thumb baseline */
+  cursor: pointer;
+}
+
+/* --- Recessed track — 6px sunken well --- */
+.slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--surface-sunken); /* recessed well */
+  border-radius: var(--radius-pill);
+}
+.slider::-moz-range-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--surface-sunken); /* recessed well */
+  border-radius: var(--radius-pill);
+}
+/* Firefox paints the filled portion separately (accent-color does the rest) */
+.slider::-moz-range-progress {
+  height: 6px;
+  background-color: var(--interactive-primary); /* blue/600 fill */
+  border-radius: var(--radius-pill);
+}
+
+/* --- Raised-key thumb — 18px white knob --- */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -6px; /* center on the 6px track: (6 - 18) / 2 */
+  box-sizing: border-box;
+  background-color: var(--surface-raised); /* white raised key */
+  border: 1px solid var(--border-default); /* gray/300 */
+  border-radius: var(--radius-full);
+  box-shadow: var(--elevation-key); /* raised-key drop shadow */
+  cursor: grab;
+  transition:
+    border-color var(--duration-fast) var(--ease-enter),
+    box-shadow var(--duration-fast) var(--ease-enter);
+}
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  background-color: var(--surface-raised); /* white raised key */
+  border: 1px solid var(--border-default); /* gray/300 */
+  border-radius: var(--radius-full);
+  box-shadow: var(--elevation-key); /* raised-key drop shadow */
+  cursor: grab;
+  transition:
+    border-color var(--duration-fast) var(--ease-enter),
+    box-shadow var(--duration-fast) var(--ease-enter);
+}
+
+/* Hover — border advances to gray/400, lift deepens */
+.slider:hover:not(:disabled)::-webkit-slider-thumb {
+  border-color: var(--gray-400);
+  box-shadow: var(--elevation-key-hover);
+}
+.slider:hover:not(:disabled)::-moz-range-thumb {
+  border-color: var(--gray-400);
+  box-shadow: var(--elevation-key-hover);
+}
+.slider:active:not(:disabled)::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+.slider:active:not(:disabled)::-moz-range-thumb {
+  cursor: grabbing;
+}
+
+/* Focus = 2px blue/600 ring (on the thumb) */
+.slider:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-color: var(--border-focus);
+}
+.slider:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-color: var(--border-focus);
+}
+
+/* Disabled — gray/400 fill + gray/100 thumb, flat */
+.slider:disabled {
+  accent-color: var(--text-disabled); /* gray/400 fill */
+  cursor: not-allowed;
+}
+.slider:disabled::-moz-range-progress {
+  background-color: var(--text-disabled); /* gray/400 */
+}
+.slider:disabled::-webkit-slider-thumb {
+  background-color: var(--surface-sunken); /* gray/100 */
+  border-color: var(--border-default);
+  box-shadow: none; /* flat */
+  cursor: not-allowed;
+}
+.slider:disabled::-moz-range-thumb {
+  background-color: var(--surface-sunken); /* gray/100 */
+  border-color: var(--border-default);
+  box-shadow: none; /* flat */
+  cursor: not-allowed;
+}
+
+/* ===== media.css ===== */
+/* ==========================================================================
+   Vallejo Design System v1.2 — Media
+   --------------------------------------------------------------------------
+   Avatar — circle, presentational identity.
+     Type  [Image / Initials / Icon]  ×  Size [XS24 / SM32 / MD40 / LG48 / XL64]
+     Fallback chain: real photo -> initials -> icon.user.
+
+   The one rule: NO hashed/per-user color, NO presence dot, NO default ring —
+   the only ring is the opt-in MEMBERSHIP ring (Free = none · Basic = gray/300 ·
+   Premier = gold), added via .avatar-basic / .avatar-premier.
+   Identity is neutral; color is reserved for status / interactivity.
+   Circle-only — company/org marks route to a separate Thumbnail concept.
+   MD40 = the List Row leading anchor.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Avatar — base
+   Circle container that hosts an <img>, initials text, or an icon.user svg.
+   -------------------------------------------------------------------------- */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  overflow: hidden;                 /* clip photo to the circle */
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-weight: 600;                 /* Inter Semi Bold — initials */
+  line-height: 1;
+  user-select: none;
+  /* MD40 is the default anchor size; per-size modifiers override below. */
+  width: 40px;
+  height: 40px;
+  font-size: 15px;
+}
+
+/* --------------------------------------------------------------------------
+   Avatar — sizes (XS24 / SM32 / MD40 / LG48 / XL64)
+   font-size scales the initials; the icon.user svg is sized as a share of
+   the circle via .avatar svg below.
+   -------------------------------------------------------------------------- */
+.avatar-xs {
+  width: 24px;
+  height: 24px;
+  font-size: 11px;                  /* single letter < 32px */
+}
+
+.avatar-sm {
+  width: 32px;
+  height: 32px;
+  font-size: 13px;
+}
+
+.avatar-md {
+  width: 40px;
+  height: 40px;
+  font-size: 15px;
+}
+
+.avatar-lg {
+  width: 48px;
+  height: 48px;
+  font-size: 18px;
+}
+
+.avatar-xl {
+  width: 64px;
+  height: 64px;
+  font-size: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   Avatar — Image
+   A real photo dropped into the fill. Placeholder (no/failed photo) shows the
+   icon.user silhouette in white on gray/300.
+   -------------------------------------------------------------------------- */
+.avatar-image {
+  background-color: var(--gray-300);   /* placeholder silhouette backdrop */
+  color: var(--text-inverse);          /* icon.user silhouette = white */
+}
+
+.avatar-image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Avatar — Initials
+   gray/200 fill + gray/700 (text/secondary) Inter Semi Bold.
+   1 letter < 32px, 2 letters >= 32px (XS = single).
+   -------------------------------------------------------------------------- */
+.avatar-initials {
+  background-color: var(--gray-200);
+  color: var(--text-secondary);        /* gray/700 */
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Avatar — Icon fallback
+   icon.user (icon/muted) on gray/100.
+   -------------------------------------------------------------------------- */
+.avatar-icon {
+  background-color: var(--gray-100);
+  color: var(--text-tertiary);         /* icon/muted */
+}
+
+/* --------------------------------------------------------------------------
+   Avatar — icon.user svg sizing
+   The glyph fills ~60% of the circle and inherits the modifier's color.
+   -------------------------------------------------------------------------- */
+.avatar svg {
+  width: 60%;
+  height: 60%;
+  fill: currentColor;
+}
+
+/* --------------------------------------------------------------------------
+   Avatar — membership ring (Basic / Premier)
+   The ONLY ring the avatar wears. A 2px ring set 2px off the circle, with a
+   TRANSPARENT 2px gap (the background shows through) so it reads as a ring,
+   not a border. Free/Guest members get no ring; paid members get one:
+     · Basic   = gray/300 ring
+     · Premier = gold ring
+   Built with outline + outline-offset (NOT box-shadow) so the gap is genuinely
+   transparent and the ring is never clipped by the avatar's overflow:hidden;
+   modern browsers round the outline to the circle. Composes with any Type +
+   Size — the avatar's size + clipped photo stay untouched. (On an interactive
+   avatar the :focus-visible ring temporarily replaces this one — expected.)
+   -------------------------------------------------------------------------- */
+.avatar-basic {
+  outline: 2px solid var(--gray-300);
+  outline-offset: 2px;
+}
+
+.avatar-premier {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ===== messaging.css ===== */
+/* ==========================================================================
+   Vallejo Design System v1.2 — Messaging
+   Alert · Banner (Subtle vs Solid) · Toast
+   --------------------------------------------------------------------------
+   Tonal grammar — 5 tones: neutral / info / success / warning / error.
+   - SUBTLE recipe  : family/100 fill + family/800 text + family/600 icon.
+   - SOLID recipe   : family/600 fill + inverse (white) text + icon.
+   Every message is color + icon + label. Dismiss × is a real <button>.
+   Tokens only — zero hardcoded colors.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   ALERT
+   Inline message in the content flow, about a specific region/form/section.
+   Persistent until resolved/dismissed. Subtle recipe at block scale:
+   tone/100 fill + tone/800 content + tone/600 icon. Radius 12.
+   -------------------------------------------------------------------------- */
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans);
+  /* tone defaults (neutral) — overridden by each .alert-{tone} */
+  background-color: var(--surface-sunken);
+  color: var(--text-secondary);
+}
+
+.alert-icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  /* icon uses the tone accent (tone/600); set per-tone below */
+  color: var(--text-tertiary);
+}
+
+.alert-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.alert-title {
+  margin: 0;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500; /* List Title */
+  color: inherit;
+}
+
+/* When a title is present, give the body text a little breathing room */
+.alert-title + .alert-text {
+  margin-top: var(--space-1);
+}
+
+.alert-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400; /* Body Small */
+  color: inherit;
+}
+
+.alert-dismiss {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin: -2px -4px -2px 0; /* optical: align × to the top-right edge */
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: currentColor; /* inherits the tone text color */
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-enter);
+}
+.alert-dismiss svg {
+  width: 16px;
+  height: 16px;
+}
+.alert-dismiss:hover {
+  /* subtle scrim from the key-edge shadow color — stays on the tonal fill */
+  background-color: var(--shadow-key-edge);
+}
+
+/* Per-tone fills + text + icon (Subtle recipe) */
+.alert-neutral {
+  background-color: var(--surface-sunken);
+  color: var(--text-secondary);
+}
+.alert-neutral .alert-icon { color: var(--text-tertiary); }
+
+.alert-info {
+  background-color: var(--blue-100);
+  color: var(--blue-800);
+}
+.alert-info .alert-icon { color: var(--blue-600); }
+
+.alert-success {
+  background-color: var(--success-light);
+  color: var(--success-dark);
+}
+.alert-success .alert-icon { color: var(--success-accent); }
+
+.alert-warning {
+  background-color: var(--warning-light);
+  color: var(--warning-dark);
+}
+.alert-warning .alert-icon { color: var(--warning-accent); }
+
+.alert-error {
+  background-color: var(--error-light);
+  color: var(--error-dark);
+}
+.alert-error .alert-icon { color: var(--error-accent); }
+
+/* Focus indicator — solid 2px ring */
+.alert-dismiss:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   BANNER
+   Full-width, persistent, anchored to the top of a view. Edge-to-edge:
+   radius 0, stretches to container width. Single message line.
+   SUBTLE (default) = tone/100 fill + tone/800 content.
+   SOLID (critical only) = tone/600 fill + inverse content
+     (Neutral solid = ink gray/900).
+   -------------------------------------------------------------------------- */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-none);
+  font-family: var(--font-sans);
+  /* tone defaults (neutral, subtle) */
+  background-color: var(--surface-sunken);
+  color: var(--text-secondary);
+}
+
+.banner-icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  color: var(--text-tertiary);
+}
+
+.banner-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400; /* Body Small */
+  color: inherit;
+}
+
+.banner-dismiss {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin: -2px -4px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-enter);
+}
+.banner-dismiss svg {
+  width: 16px;
+  height: 16px;
+}
+.banner-dismiss:hover {
+  background-color: var(--shadow-key-edge);
+}
+.banner-dismiss:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ---- Subtle tones (default): tone/100 fill + tone/800 text + tone/600 icon */
+.banner-neutral {
+  background-color: var(--surface-sunken);
+  color: var(--text-secondary);
+}
+.banner-neutral .banner-icon { color: var(--text-tertiary); }
+
+.banner-info {
+  background-color: var(--blue-100);
+  color: var(--blue-800);
+}
+.banner-info .banner-icon { color: var(--blue-600); }
+
+.banner-success {
+  background-color: var(--success-light);
+  color: var(--success-dark);
+}
+.banner-success .banner-icon { color: var(--success-accent); }
+
+.banner-warning {
+  background-color: var(--warning-light);
+  color: var(--warning-dark);
+}
+.banner-warning .banner-icon { color: var(--warning-accent); }
+
+.banner-error {
+  background-color: var(--error-light);
+  color: var(--error-dark);
+}
+.banner-error .banner-icon { color: var(--error-accent); }
+
+/* ---- Solid emphasis (critical only): tone/600 fill + inverse content.
+        Neutral solid = ink gray/900. Icon + text both ride on the fill. */
+.banner-solid {
+  color: var(--text-inverse);
+}
+.banner-solid .banner-icon { color: var(--text-inverse); }
+
+.banner-neutral.banner-solid {
+  background-color: var(--surface-header-deep); /* ink gray/900 */
+}
+.banner-info.banner-solid {
+  background-color: var(--blue-600);
+}
+.banner-success.banner-solid {
+  background-color: var(--success-accent);
+}
+.banner-warning.banner-solid {
+  background-color: var(--warning-accent);
+}
+.banner-error.banner-solid {
+  background-color: var(--error-accent);
+}
+/* On solid chrome the focus ring needs the on-dark variant */
+.banner-solid .banner-dismiss:focus-visible {
+  outline-color: var(--border-focus-on-dark);
+}
+
+/* --------------------------------------------------------------------------
+   TOAST
+   Transient float over the page confirming an action just taken.
+   White elevated card (Elevation/Overlay) + gray/200 hairline, radius 12.
+   TONE = a single tone/600 status icon; text stays NEUTRAL ink
+     (title gray/900, body gray/700). Corner-anchored, sits on --layer-toast.
+   -------------------------------------------------------------------------- */
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  max-width: 400px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-hairline); /* gray/200 hairline */
+  border-radius: var(--radius-xl);
+  background-color: var(--surface-raised); /* white elevated card */
+  box-shadow: var(--elevation-overlay); /* floating card */
+  font-family: var(--font-sans);
+  z-index: var(--layer-toast);
+}
+
+.toast-icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  /* the ONLY tone signal — tone/600 icon; set per-tone below */
+  color: var(--text-tertiary);
+}
+
+.toast-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.toast-title {
+  margin: 0;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500; /* List Title */
+  color: var(--text-primary); /* neutral ink gray/900 */
+}
+
+.toast-title + .toast-text {
+  margin-top: var(--space-1);
+}
+
+.toast-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400; /* Body Small */
+  color: var(--text-secondary); /* neutral ink gray/700 */
+}
+
+.toast-dismiss {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin: -2px -4px -2px 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-enter),
+              color var(--duration-fast) var(--ease-enter);
+}
+.toast-dismiss svg {
+  width: 16px;
+  height: 16px;
+}
+.toast-dismiss:hover {
+  background-color: var(--surface-sunken);
+  color: var(--text-secondary);
+}
+.toast-dismiss:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Per-tone icon ONLY (text + surface stay neutral) */
+.toast-neutral .toast-icon { color: var(--text-tertiary); }
+.toast-info    .toast-icon { color: var(--blue-600); }
+.toast-success .toast-icon { color: var(--success-accent); }
+.toast-warning .toast-icon { color: var(--warning-accent); }
+.toast-error   .toast-icon { color: var(--error-accent); }
+
+/* ===== navigation.css ===== */
+/* ==========================================================================
+   Vallejo Design System v1.2 — Navigation
+   --------------------------------------------------------------------------
+   Breadcrumbs (+ breadcrumb item) · Pagination (+ pagination cell) ·
+   Segmented control (+ segment) · Tab bar · Tabs
+
+   All colors via var(--token). Spacing/radius via var(--space-*)/var(--radius-*).
+   Component dimensions (cell 32px, etc.) may be literal px to match the contract.
+   States are native CSS only. Focus = solid 2px var(--border-focus) ring.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Tabs  +  Tab bar
+   --------------------------------------------------------------------------
+   L2 sub-nav — switch between distinct content areas ("places").
+   The tab bar carries a gray/200 bottom hairline; the ACTIVE tab paints a
+   2px blue/600 underline that OVERLAYS that hairline.
+   Label 14: inactive = regular text/tertiary · hover = text/secondary ·
+   active = medium text/primary. Optional count = quiet muted number.
+   a11y: role="tablist" → role="tab" + aria-selected + aria-controls.
+   ========================================================================== */
+
+.tabs,
+.tab-bar {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-1);
+  /* Continuous quiet hairline rail; the active tab's underline overlays it. */
+  box-shadow: inset 0 -1px 0 0 var(--border-hairline);
+}
+
+/* Tab bar keeps tabs left-aligned while the rail spans full width. */
+.tab-bar {
+  width: 100%;
+}
+
+.tab {
+  /* layout */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-1);
+  margin: 0 var(--space-2);
+  /* reset */
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  cursor: pointer;
+  /* type — Body Small 14/20, inactive register */
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease-enter);
+}
+
+/* The blue underline overlay, painted by the active tab over the rail. */
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;             /* sits on top of the rail's hairline */
+  height: 2px;
+  background: var(--interactive-primary);
+  border-radius: var(--radius-pill);
+  opacity: 0;
+}
+
+.tab:hover {
+  color: var(--text-secondary);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Active = medium weight, ink label + blue underline (color + position). */
+.tab[aria-selected="true"] {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.tab[aria-selected="true"]::after {
+  opacity: 1;
+}
+
+.tab[disabled],
+.tab[aria-disabled="true"] {
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+.tab[disabled]::after,
+.tab[aria-disabled="true"]::after {
+  opacity: 0;
+}
+
+/* Optional count = a quiet muted number, NOT a status badge. */
+.tab-count {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+}
+
+.tab[aria-selected="true"] .tab-count {
+  color: var(--text-secondary);
+}
+
+
+/* ==========================================================================
+   Segmented control  +  Segment
+   --------------------------------------------------------------------------
+   L3 in-page switch — switches a mode/slice of the SAME content (2–5 options).
+   Filled-segment active register: a raised-key WHITE pill (Elevation/Key) in a
+   recessed gray/100 track. Inactive = transparent + muted label.
+   a11y: role="radiogroup" → role="radio" + aria-checked (a value switch).
+   ========================================================================== */
+
+.segmented {
+  /* Hug content — the track sizes to its segments, never full-width. */
+  position: relative;            /* anchor the sliding indicator */
+  display: inline-flex;
+  width: fit-content;
+  max-width: max-content;
+  align-items: stretch;
+  gap: var(--space-0-5);
+  /* Recessed gray track. */
+  padding: var(--space-0-5);
+  background: var(--surface-sunken);
+  border-radius: var(--radius-lg);
+}
+
+/* The single sliding pill that marks the active segment. It is positioned
+   absolutely inside the track and slides under the selected label. Its
+   transform + width are driven by demo.js to match the active segment, so the
+   selection animates with a smooth slide rather than a hard jump. */
+.segmented-indicator {
+  position: absolute;
+  top: var(--space-0-5);
+  left: 0;
+  /* Sized to the active segment's box; height fills the padded track. */
+  height: calc(100% - (var(--space-0-5) * 2));
+  /* White raised-key pill — same register the active segment used to carry. */
+  background: var(--surface-raised);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elevation-key);
+  /* Slide horizontally + resize as the selection changes. */
+  transition:
+    transform var(--duration-moderate) var(--ease-enter),
+    width var(--duration-moderate) var(--ease-enter);
+  /* Sits under the labels; decorative only. */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* No indicator yet (e.g. before JS init / measurement) — hide it so the track
+   never shows a stray pill parked at the left edge. JS sets width once placed. */
+.segmented-indicator:not([style*="width"]) {
+  display: none;
+}
+
+/* The track carries the hover/active elevation so the pill keeps the same
+   tactile feedback the per-segment pill used to give, regardless of which
+   segment is under the cursor. */
+.segmented.has-indicator:hover .segmented-indicator {
+  box-shadow: var(--elevation-key-hover);
+}
+
+.segmented.has-indicator:active .segmented-indicator {
+  box-shadow: var(--elevation-key-pressed);
+}
+
+.segment {
+  /* layout — relative + above the sliding indicator so the label shows through */
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  min-height: 28px;
+  /* reset — transparent so the indicator pill reads through, not the button */
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  /* type — Body Small 14/20, muted label inactive */
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  transition:
+    color var(--duration-fast) var(--ease-enter);
+}
+
+.segment:hover {
+  color: var(--text-secondary);
+}
+
+.segment:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Active = ink medium label. The white raised-key pill is painted by the
+   single sliding .segmented-indicator beneath it, so the label itself stays
+   transparent and lets the pill read through. */
+.segment[aria-checked="true"] {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Fallback: if JS never runs (no sliding indicator), the active segment still
+   paints its own white pill so the control never reads as flat. */
+.segmented:not(.has-indicator) .segment[aria-checked="true"] {
+  background: var(--surface-raised);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elevation-key);
+}
+
+/* Disabled stays flat + muted. */
+.segment[disabled],
+.segment[aria-disabled="true"] {
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  background: transparent;
+  box-shadow: none;
+}
+
+
+/* ==========================================================================
+   Breadcrumbs  +  Breadcrumb item
+   --------------------------------------------------------------------------
+   Path of crumbs separated by quiet right-chevron (›) glyphs.
+   Link = text/secondary · Hover = blue link · Current = ink medium (non-link).
+   a11y: <nav aria-label="Breadcrumb"> → <ol>; current carries aria-current="page".
+   ========================================================================== */
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A crumb — Body Small 14/20. */
+.breadcrumb-item {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.breadcrumb-item a {
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast) var(--ease-enter);
+}
+
+.breadcrumb-item a:hover {
+  color: var(--text-link);
+  text-decoration: underline;
+}
+
+.breadcrumb-item a:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Current crumb = ink medium, the page you are on (not a link). */
+.breadcrumb-item[aria-current="page"] {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Separator = muted right-chevron (›), decorative. Any author-supplied glyph
+   is replaced so the separator always renders as a chevron-right caret. */
+.breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  user-select: none;
+  /* Collapse any literal glyph the markup ships ("/") so only the chevron shows. */
+  font-size: 0;
+}
+
+.breadcrumb-sep::after {
+  content: "\203A"; /* › chevron-right */
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 20px;
+}
+
+
+/* ==========================================================================
+   Pagination  +  Pagination cell
+   --------------------------------------------------------------------------
+   Prev/Next bracket a row of cells; current page = filled blue/600 + white;
+   ellipsis collapses the middle.
+   Cell = 32px square, radius 6 — Default = ghost text/secondary,
+   Hover = gray/100 bg, Current = blue/600 fill + white, Disabled = muted.
+   a11y: <nav aria-label="Pagination">; current cell aria-current="page";
+   Prev/Next get aria-labels; disabled ends use aria-disabled.
+   ========================================================================== */
+
+.pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.pagination-cell {
+  /* 32px square, radius 6 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  /* reset */
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  /* type — Body Small 14/20, ghost default */
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition:
+    color var(--duration-fast) var(--ease-enter),
+    background-color var(--duration-fast) var(--ease-enter);
+}
+
+.pagination-cell svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.pagination-cell:hover {
+  background: var(--surface-sunken);
+}
+
+.pagination-cell:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Current page = filled blue/600 + white. */
+.pagination-cell[aria-current="page"] {
+  background: var(--interactive-primary);
+  color: var(--text-inverse);
+}
+
+.pagination-cell[aria-current="page"]:hover {
+  background: var(--interactive-primary-hover);
+}
+
+/* Disabled ends (Prev/Next at the bounds). */
+.pagination-cell[disabled],
+.pagination-cell[aria-disabled="true"] {
+  color: var(--text-disabled);
+  background: transparent;
+  cursor: not-allowed;
+}
+
+/* Ellipsis = decorative middle collapse. */
+.pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-tertiary);
+  user-select: none;
+}
+
+/* ===== overlays.css ===== */
+/* ============================================================================
+   Vallejo Design System v1.2 — Overlays
+   Icon button · Menu (+ Menu Item) · Popover · Tooltip · Modal · Shelf
+
+   Floating surfaces (Menu / Popover / Tooltip / Modal / Shelf) are the only
+   place sanctioned elevation lives — controls never wear shadows.
+
+   NOTE on tokens: the system has no dedicated `--surface-scrim` color or
+   `Elevation/Overlay` / `Elevation/Modal` composite shadow token. To honor the
+   ZERO-hardcoded-color rule, floating elevation is layered from the only
+   neutral shadow-color primitives in the system (`--shadow-key-*`), and the
+   modal scrim is derived from the ink token (`--gray-950`) at 45% via
+   color-mix — no raw hex/rgb is introduced.
+   ============================================================================ */
+
+/* Local floating-surface elevation composites, built from sanctioned
+   --shadow-key-* color primitives. Two tiers: overlay (light floats) and
+   modal (blocking surfaces sit higher). */
+:root {
+  --elevation-overlay:
+    0 1px 2px 0 var(--shadow-key-edge),
+    0 8px 24px -4px var(--shadow-key-drop-hover);
+  --elevation-modal:
+    0 1px 3px 0 var(--shadow-key-edge),
+    0 18px 48px -8px var(--shadow-key-drop-hover);
+  /* Scrim = ink @ 45% (derived from the --gray-950 ink token). */
+  --surface-scrim: color-mix(in srgb, var(--gray-950) 45%, transparent);
+}
+
+/* ============================================================================
+   Icon button
+   Circular 32px overlay-header / row-action button. 24px icon, 44px hit area.
+   Flat — NO elevation. Default transparent / Hover gray-100 / Pressed gray-200.
+   ============================================================================ */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-tertiary);              /* Close default = text/tertiary */
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-enter),
+    color var(--duration-fast) var(--ease-enter);
+}
+
+/* 44px touch hit-area without growing the visual circle. */
+.icon-btn::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
+.icon-btn svg {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  fill: currentColor;
+  pointer-events: none;
+}
+
+.icon-btn:hover {
+  background: var(--surface-sunken);        /* gray-100 */
+}
+
+.icon-btn:active {
+  background: var(--border-hairline);       /* gray-200 */
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.icon-btn[disabled],
+.icon-btn[aria-disabled="true"] {
+  color: var(--text-disabled);
+  background: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Icon-intent color cuts. Back = text/primary; More inherits the default. */
+.icon-btn-back { color: var(--text-primary); }
+.icon-btn-close { color: var(--text-tertiary); }
+
+/* On dark overlay chrome (header bars), swap the focus ring + inks. */
+.icon-btn-on-dark {
+  color: var(--text-on-header);
+}
+.icon-btn-on-dark:focus-visible {
+  outline-color: var(--border-focus-on-dark);
+}
+
+/* ============================================================================
+   Menu  +  Menu Item
+   Action / context / overflow container. White card, radius 12, padding 6.
+   NO scrim, light-dismiss. NOT for form selection (that is Select Menu).
+   ============================================================================ */
+.menu {
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+  padding: var(--space-1-5);                /* 6 */
+  border: 1px solid var(--border-hairline); /* gray-200 */
+  border-radius: var(--radius-xl);          /* 12 */
+  background: var(--surface-raised);        /* white */
+  box-shadow: var(--elevation-overlay);
+  z-index: var(--layer-dropdown);
+}
+
+.menu-divider {
+  height: 1px;
+  margin: var(--space-1) calc(-1 * var(--space-1-5)); /* full-bleed within padding */
+  background: var(--border-hairline);
+  border: none;
+}
+
+/* --- Menu Item ----------------------------------------------------------- */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-1-5) var(--space-2); /* 6 / 8 */
+  border: none;
+  border-radius: var(--radius-lg);          /* 8 */
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;                          /* Body Small */
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background-color var(--duration-fast) var(--ease-enter);
+}
+
+.menu-item-icon {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  fill: currentColor;
+  color: var(--text-tertiary);
+}
+
+/* Trailing slot: shortcut hint or submenu chevron, pushed to the far edge. */
+.menu-item-shortcut {
+  margin-left: auto;
+  padding-left: var(--space-4);
+  color: var(--text-tertiary);
+  font-family: var(--font-sans);
+  font-size: 13px;                          /* Footnote */
+  line-height: 16px;
+}
+
+.menu-item:hover {
+  background: var(--surface-sunken);        /* gray-100 wash */
+}
+
+.menu-item:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -2px;
+}
+
+.menu-item[disabled],
+.menu-item[aria-disabled="true"] {
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.menu-item[disabled] .menu-item-icon,
+.menu-item[aria-disabled="true"] .menu-item-icon {
+  color: var(--text-disabled);
+}
+
+/* Destructive tone — error ink; hover = error/50 wash. */
+.menu-item-destructive {
+  color: var(--error-accent);               /* error/600 */
+}
+.menu-item-destructive .menu-item-icon {
+  color: var(--error-accent);
+}
+.menu-item-destructive:hover {
+  background: var(--error-subtle);          /* error/50 */
+}
+
+/* ============================================================================
+   Popover
+   Anchored floating panel, NO scrim, light-dismiss, with a caret to its
+   trigger. White card, radius 12, Elevation/Overlay. Holds arbitrary content.
+   ============================================================================ */
+.popover {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);                       /* 4 — title block → body */
+  max-width: 320px;
+  padding: var(--space-4);                  /* 16 */
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-xl);          /* 12 */
+  background: var(--surface-raised);
+  box-shadow: var(--elevation-overlay);
+  z-index: var(--layer-dropdown);
+}
+
+.popover-header {
+  display: flex;
+  align-items: center;                       /* close × vertically centered to title */
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.popover-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 15px;                          /* List Title */
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.popover-body {
+  margin: 0;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 14px;                          /* Body Small */
+  font-weight: 400;
+  line-height: 20px;
+}
+
+/* Caret — a rotated square that borrows the card fill + hairline so it reads
+   as a continuous point toward the trigger. Default points up (popover-bottom). */
+.popover-caret {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--surface-raised);
+  border-left: 1px solid var(--border-hairline);
+  border-top: 1px solid var(--border-hairline);
+}
+.popover-bottom .popover-caret {           /* panel below trigger → caret on top */
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+.popover-top .popover-caret {              /* panel above trigger → caret on bottom */
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(225deg);
+}
+.popover-left .popover-caret {             /* panel left of trigger → caret on right */
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%) rotate(135deg);
+}
+.popover-right .popover-caret {            /* panel right of trigger → caret on left */
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%) rotate(315deg);
+}
+
+/* ============================================================================
+   Tooltip
+   Tiny transient hover/focus label. Dark ink (gray-900) + white text,
+   Footnote 13/16, radius 8, Elevation/Overlay, caret to its trigger.
+   Must appear on hover AND focus (handled by the trigger in JS).
+   ============================================================================ */
+.tooltip {
+  position: absolute;
+  display: inline-block;
+  max-width: 240px;
+  padding: var(--space-1-5) var(--space-2); /* 6 / 8 */
+  border-radius: var(--radius-lg);          /* 8 */
+  background: var(--gray-900);              /* dark ink */
+  color: var(--text-inverse);               /* white */
+  font-family: var(--font-sans);
+  font-size: 13px;                          /* Footnote */
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  text-align: center;
+  box-shadow: var(--elevation-overlay);
+  z-index: var(--layer-tooltip);
+  pointer-events: none;                     /* text-only, no interaction */
+}
+
+/* Caret — solid dark square, SAME fill as the body, rotated 45° and pulled
+   halfway under the body so its flat edge sits FLUSH against the tooltip and
+   the pair reads as one continuous shape. Default = bottom-center pointing down
+   (tooltip-top: tooltip above trigger). No shadow on the caret so no seam line. */
+.tooltip::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--gray-900);              /* identical to body fill */
+  transform: rotate(45deg);
+  /* Default placement = bottom-center pointing down (matches a bare .tooltip). */
+  bottom: -5px;
+  left: 50%;
+  margin-left: -5px;
+}
+.tooltip-top::after {                       /* tooltip above trigger → caret below, points down */
+  bottom: -5px;                             /* half the 10px square overlaps the body edge */
+  left: 50%;
+  margin-left: -5px;
+}
+.tooltip-bottom::after {                    /* tooltip below trigger → caret above, points up */
+  top: -5px;
+  bottom: auto;
+  left: 50%;
+  margin-left: -5px;
+}
+.tooltip-left::after {                      /* tooltip left of trigger → caret right, points right */
+  right: -5px;
+  top: 50%;
+  bottom: auto;
+  left: auto;
+  margin-top: -5px;
+  margin-left: 0;
+}
+.tooltip-right::after {                     /* tooltip right of trigger → caret left, points left */
+  left: -5px;
+  top: 50%;
+  bottom: auto;
+  margin-top: -5px;
+  margin-left: 0;
+}
+
+/* ============================================================================
+   Modal
+   Centered dialog that BLOCKS the page behind a scrim. White card, radius 16,
+   Elevation/Modal. Header (title + close) · body · right-aligned footer.
+   Sizes: SM 400 · MD 520 · LG 720.
+   ============================================================================ */
+.modal-scrim {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: var(--surface-scrim);         /* ink @ 45% */
+  z-index: var(--layer-scrim);
+  animation: vds-scrim-in var(--duration-moderate) var(--ease-enter);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 520px;                         /* MD default */
+  max-height: calc(100vh - var(--space-12));
+  border-radius: var(--radius-2xl);         /* 16 */
+  background: var(--surface-raised);
+  box-shadow: var(--elevation-modal);
+  z-index: var(--layer-modal);
+  animation: vds-modal-in var(--duration-slow) var(--ease-enter);
+}
+
+.modal-sm { max-width: 400px; }
+.modal-md { max-width: 520px; }
+.modal-lg { max-width: 720px; }
+
+.modal-header {
+  display: flex;
+  align-items: center;                       /* close × vertically centered to title */
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-6) var(--space-1); /* 20 / 24 / 4 — 4px gap to body */
+}
+
+.modal-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 20px;                          /* Title 3 */
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.modal-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 0 var(--space-6);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 16px;                          /* Body */
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-6) var(--space-6); /* 20 / 24 / 24 */
+}
+
+/* ============================================================================
+   Shelf
+   Edge panel. Forms: Panel (floats over) · Docked (desktop, flush — no shadow,
+   left hairline) · Full-screen (covers viewport). Sticky header + footer; body
+   is the only scroll region. Slides in from the anchored edge via --ease-enter.
+   ============================================================================ */
+.shelf {
+  position: fixed;
+  top: 0;
+  right: 0;                                 /* default anchor: right edge */
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  max-width: 100vw;
+  background: var(--surface-raised);
+  box-shadow: var(--elevation-modal);       /* Panel + Full-screen are elevated */
+  z-index: var(--layer-drawer);
+  animation: vds-shelf-in var(--duration-deliberate) var(--ease-enter);
+}
+
+/* Panel — edge side panel that floats over the page. */
+.shelf-panel {
+  width: 420px;
+}
+
+/* Docked — desktop only; flush against reflowed content. No shadow, left hairline. */
+.shelf-docked {
+  position: relative;                       /* sits in flow beside content */
+  width: 360px;
+  box-shadow: none;
+  border-left: 1px solid var(--border-hairline); /* gray-200 */
+}
+
+/* Full-screen — covers the viewport. */
+.shelf-full-screen {
+  inset: 0;
+  width: 100vw;
+}
+
+/* --- Sticky header ------------------------------------------------------- */
+.shelf-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: none;
+  padding: var(--space-4) var(--space-5);   /* 16 / 20 */
+  background: var(--surface-raised);
+  z-index: var(--layer-sticky);
+}
+
+.shelf-titles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.shelf-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 18px;                          /* Body Large weight bumped for a header */
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.shelf-subtitle {
+  margin: 0;
+  color: var(--text-tertiary);
+  font-family: var(--font-sans);
+  font-size: 13px;                          /* Footnote */
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+}
+
+/* --- Body: the only scroll region ---------------------------------------- */
+.shelf-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 14px;                          /* Body Small */
+  font-weight: 400;
+  line-height: 20px;
+}
+
+/* --- Sticky footer: Quiet Cancel + Primary Save -------------------------- */
+.shelf-footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  flex: none;
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface-raised);
+  z-index: var(--layer-sticky);
+}
+
+/* Scrolled boolean — reveals a gray-200 hairline under the header + above the
+   footer when the body scrolls (set by code). */
+.shelf-scrolled .shelf-header {
+  border-bottom: 1px solid var(--border-hairline);
+}
+.shelf-scrolled .shelf-footer {
+  border-top: 1px solid var(--border-hairline);
+}
+
+/* ============================================================================
+   Motion — enter transitions for blocking/floating surfaces
+   ============================================================================ */
+@keyframes vds-scrim-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes vds-modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes vds-shelf-in {
+  from { transform: translateX(100%); }     /* slide in from the right edge */
+  to   { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-scrim,
+  .modal,
+  .shelf {
+    animation: none;
+  }
+}
+
+/* ===== progress.css ===== */
+/* =============================================================================
+   Vallejo Design System v1.2 — Loading & Progress
+   Progress bar · Spinner · Skeleton · Step indicator (+ Step item)
+
+   All colors via var(--token). States are native CSS. Motion respects
+   prefers-reduced-motion. No hardcoded colors anywhere.
+   ============================================================================= */
+
+
+/* =============================================================================
+   PROGRESS BAR
+   Linear. Track gray/200, pill radius, fill scales proportionally.
+   Size: SM (4px) / MD (6px).
+   State: Progress (interactive/primary) · Success (success/600) ·
+          Error (error/600) · Indeterminate (animated 40% sweep).
+   role="progressbar" + aria-valuenow/min/max (omit valuenow for indeterminate).
+   ============================================================================= */
+
+/* Optional wrapper: label/value header above the bar */
+.progress-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+}
+
+.progress-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  /* Footnote: Inter 400 / 13 / 16 */
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  color: var(--text-secondary);
+}
+
+/* Value uses mono for the numeric percentage (e.g. "60%") */
+.progress-header .input-mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+/* The track */
+.progress {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--gray-200);
+  border-radius: var(--radius-pill);
+}
+
+/* Size variants — track height */
+.progress-sm { height: 4px; }
+.progress-md { height: 6px; }
+
+/* Determinate fill — width set inline (style="width:60%") */
+.progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background-color: var(--interactive-primary);
+  transition: width var(--duration-moderate) var(--ease-enter);
+}
+
+/* State overrides — fill color per role */
+.progress-success .progress-fill { background-color: var(--success-accent); }
+.progress-error .progress-fill   { background-color: var(--error-accent); }
+
+/* Indeterminate — animated 40% sweep across the track.
+   No fill element required; the sweep is painted on the track itself. */
+.progress-indeterminate::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inline-size: 40%;
+  border-radius: var(--radius-pill);
+  background-color: var(--interactive-primary);
+  animation: vds-progress-sweep var(--duration-pulse) var(--ease-enter) infinite;
+}
+
+@keyframes vds-progress-sweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill { transition: none; }
+  .progress-indeterminate::after {
+    /* Static, centered sweep — communicates "busy" without motion */
+    animation: none;
+    transform: translateX(75%);
+  }
+}
+
+
+/* =============================================================================
+   SPINNER
+   Indeterminate circular loader. Arc ~30%, round caps, rotates 0.8s linear.
+   Size: 16 / 24 / 32 / 48.
+   Tone: Default (interactive/primary arc on gray/200 track) ·
+         Inverse (white arc, no track — for accent/dark surfaces).
+   role="status" + aria-label.
+   ============================================================================= */
+
+.spinner {
+  display: inline-block;
+  flex: none;
+  border-radius: var(--radius-full);
+  border-style: solid;
+  /* Track = gray/200; the visible arc is the top border in the accent color */
+  border-color: var(--gray-200);
+  border-top-color: var(--interactive-primary);
+  /* round-ish caps emulated via the arc thickness; rotation is the motion */
+  animation: vds-spin var(--duration-expressive) var(--ease-linear) infinite;
+}
+
+/* Size variants — box size + proportional stroke width */
+.spinner-16 { width: 16px; height: 16px; border-width: 2px; }
+.spinner-24 { width: 24px; height: 24px; border-width: 2px; }
+.spinner-32 { width: 32px; height: 32px; border-width: 3px; }
+.spinner-48 { width: 48px; height: 48px; border-width: 4px; }
+
+/* Inverse tone — white arc, no track (transparent ring) for accent/dark chrome */
+.spinner-inverse {
+  border-color: transparent;
+  border-top-color: var(--text-inverse);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation-duration: calc(var(--duration-expressive) * 3); }
+}
+
+
+/* =============================================================================
+   SKELETON
+   Placeholder primitives: Line (pill) · Circle (avatar) · Rect (media).
+   Fill gray/100 with a subtle shimmer. Decorative (aria-hidden); announce
+   loading via a sibling role="status" inside an aria-busy region.
+   ============================================================================= */
+
+.skeleton {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--gray-100);
+  /* Subtle left-to-right shimmer using a token-driven highlight */
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gray-50) 50%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  background-position: -150% 0;
+  animation: vds-skeleton-shimmer var(--duration-pulse) var(--ease-enter) infinite;
+}
+
+/* Shape variants */
+.skeleton-line {
+  height: 12px;
+  width: 100%;            /* width often overridden inline */
+  border-radius: var(--radius-pill);
+}
+
+.skeleton-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+}
+
+.skeleton-rect {
+  width: 100%;
+  height: 120px;
+  border-radius: var(--radius-md);
+}
+
+@keyframes vds-skeleton-shimmer {
+  0%   { background-position: -150% 0; }
+  100% { background-position:  150% 0; }
+}
+
+/* Respect reduced motion — flat, static placeholder (no shimmer) */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    background-image: none;
+    animation: none;
+  }
+}
+
+
+/* =============================================================================
+   STEP INDICATOR (+ STEP ITEM)
+   Vertical process tracker — an <ol> of .step-item.
+   Connector auto-colors: blue behind completed steps, gray ahead.
+   Step item State: Complete (check) · Current (number) · Processing (spinner) ·
+                    Upcoming (number, muted) · Error (×).
+   Current carries aria-current="step"; markers are decorative (aria-hidden).
+   ============================================================================= */
+
+.step-indicator {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Step item --------------------------------------------------------------
+   Two-column row: marker (with vertical connector) + content. */
+.step-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  /* Bottom padding makes room for the connector run to the next item */
+  padding-bottom: var(--space-5);
+}
+
+/* Marker: 24px circular glyph holder */
+.step-marker {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-default);
+  background-color: var(--surface-raised);
+  /* Caption 1: Inter 500 / 12 / 16 — the editable number on Current/Upcoming */
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.18px;
+  color: var(--text-tertiary);
+}
+
+.step-marker svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* Vertical connector — runs from below the marker to the next step.
+   Default (ahead of progress) = gray. */
+.step-item::before {
+  content: "";
+  position: absolute;
+  top: 24px;                 /* start just below the 24px marker */
+  bottom: 0;
+  left: calc(24px / 2);      /* center under the marker */
+  width: 2px;
+  transform: translateX(-50%);
+  background-color: var(--border-hairline);
+}
+
+/* Last step turns the connector off (also covered by .step-content-last) */
+.step-item:last-child::before,
+.step-item:has(.step-content-last)::before {
+  display: none;
+}
+
+/* Content block */
+.step-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+  padding-top: var(--space-0-5);   /* optical align title with marker */
+}
+
+.step-title {
+  margin: 0;
+  /* Body Small: Inter 400 / 14 / 20 — emphasized to 500 for the title slot */
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-primary);
+}
+
+.step-supporting {
+  margin: 0;
+  /* Footnote: Inter 400 / 13 / 16 */
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.13px;
+  color: var(--text-tertiary);
+}
+
+/* --- Step item states ------------------------------------------------------- */
+
+/* Complete — filled blue marker + check; connector behind it is blue */
+.step-item-complete .step-marker {
+  border-color: var(--interactive-primary);
+  background-color: var(--interactive-primary);
+  color: var(--text-inverse);
+}
+/* The connector trailing a completed step is "behind" progress -> blue */
+.step-item-complete::before {
+  background-color: var(--interactive-primary);
+}
+
+/* Current — selected, active step (number) */
+.step-item-current .step-marker {
+  border-color: var(--interactive-primary);
+  background-color: var(--interactive-selected-wash);
+  color: var(--interactive-primary);
+}
+.step-item-current .step-title {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Processing — current step that's working; marker hosts a small spinner */
+.step-item-processing .step-marker {
+  border-color: var(--interactive-primary);
+  background-color: var(--surface-raised);
+  color: var(--interactive-primary);
+}
+.step-item-processing .step-marker::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--gray-200);
+  border-top-color: var(--interactive-primary);
+  animation: vds-spin var(--duration-expressive) var(--ease-linear) infinite;
+}
+
+/* Upcoming — muted, not yet reached (number) */
+.step-item-upcoming .step-marker {
+  border-color: var(--border-hairline);
+  background-color: var(--surface-canvas);
+  color: var(--text-disabled);
+}
+.step-item-upcoming .step-title {
+  color: var(--text-secondary);
+}
+
+/* Error — failed step (×) */
+.step-item-error .step-marker {
+  border-color: var(--error-accent);
+  background-color: var(--error-accent);
+  color: var(--text-inverse);
+}
+.step-item-error .step-title {
+  color: var(--error-accent);
+}
+.step-item-error .step-supporting {
+  color: var(--error-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step-item-processing .step-marker::after {
+    animation-duration: calc(var(--duration-expressive) * 3);
+  }
+}
+
+
+/* =============================================================================
+   SHARED MOTION
+   ============================================================================= */
+
+@keyframes vds-spin {
+  to { transform: rotate(360deg); }
+}
