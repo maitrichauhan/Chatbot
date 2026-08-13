@@ -118,7 +118,7 @@ window.COPART_KB = (function () {
      one job, always answering "who am I talking to". */
   const ASSISTANT = {
     name: 'Cogent',
-    subtitle: 'Cogent is AI and can make mistakes.'
+    subtitle: 'AI responses may be inaccurate.'
   };
 
   const ESCALATION = {
